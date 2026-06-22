@@ -3,14 +3,16 @@ import type { AppSettings, ClinicalCase, KbChapter } from './lib/types'
 import { DEFAULT_MODEL } from './lib/anthropicClient'
 import { DEFAULT_LOCAL_MODEL } from './lib/engines/webllmEngine'
 import { PROXY_MODE } from './lib/config'
-import { generativeAvailable } from './lib/generate'
-import { loadKbIndex } from './data/loadContent'
+import { generativeAvailable, generativeChat } from './lib/generate'
+import { AnthropicError } from './lib/anthropicClient'
+import { loadKbIndex, loadCases, loadChunk } from './data/loadContent'
 import { useChat } from './hooks/useChat'
 import { useExam } from './hooks/useExam'
 import { useSpeechRecognition } from './hooks/useSpeechRecognition'
 import { useSpeechSynthesis } from './hooks/useSpeechSynthesis'
 import { useWebLLM } from './hooks/useWebLLM'
 import { Chat } from './components/Chat'
+import { CaseBar } from './components/CaseBar'
 import { ExamView } from './components/ExamView'
 import { Settings } from './components/Settings'
 import { PasswordGate } from './components/PasswordGate'
@@ -27,13 +29,12 @@ const DEFAULT_SETTINGS: AppSettings = {
   rate: 1,
 }
 
-// Free Q&A is not tied to a preset case; a neutral pseudo-case lets the existing
-// retrieval/chat pipeline run with the question driving relevance.
-const GENERIC_CASE: ClinicalCase = {
-  id: 'free',
+// Fallback while the case bank loads.
+const PLACEHOLDER_CASE: ClinicalCase = {
+  id: 'loading',
   titulo: '',
   tema: 'General Surgery',
-  presentacion: 'Free study question (no specific case).',
+  presentacion: '',
   puntosClave: [],
   fuente: '',
 }
@@ -59,7 +60,10 @@ export default function App() {
   const [tab, setTab] = useState<Tab>('exam')
 
   const [kbChapters, setKbChapters] = useState<KbChapter[]>([])
+  const [cases, setCases] = useState<ClinicalCase[]>([])
+  const [caseIdx, setCaseIdx] = useState(0)
   const [loadError, setLoadError] = useState<string | null>(null)
+  const [generating, setGenerating] = useState(false)
   const [examMuted, setExamMuted] = useState(false)
 
   const tts = useSpeechSynthesis()
@@ -70,10 +74,16 @@ export default function App() {
   }, [settings])
 
   useEffect(() => {
-    loadKbIndex()
-      .then((kb) => setKbChapters(kb.chapters))
+    Promise.all([loadKbIndex(), loadCases()])
+      .then(([kb, c]) => {
+        setKbChapters(kb.chapters)
+        setCases(c.casos)
+        if (c.casos.length) setCaseIdx(Math.floor(Math.random() * c.casos.length))
+      })
       .catch((e) => setLoadError(e?.message || 'Could not load content.'))
   }, [])
+
+  const activeCase = cases[caseIdx] ?? PLACEHOLDER_CASE
 
   const speak = useCallback(
     (text: string) => tts.speak(text, settings.voiceURI || undefined, settings.rate),
@@ -97,7 +107,7 @@ export default function App() {
 
   const qa = useChat({
     settings,
-    activeCase: GENERIC_CASE,
+    activeCase,
     kbChapters,
     localGenerate: webllm.generate,
     localReady: webllm.status === 'ready',
@@ -110,6 +120,72 @@ export default function App() {
     },
     [qa, settings.ttsEnabled, speak],
   )
+
+  // Free Q&A: refresh/change the active clinical case (random) and reset the chat.
+  const changeCase = useCallback(() => {
+    tts.cancel()
+    qa.reset()
+    setCaseIdx((i) => {
+      if (cases.length <= 1) return i
+      let next = i
+      while (next === i) next = Math.floor(Math.random() * cases.length)
+      return next
+    })
+  }, [cases.length, qa, tts])
+
+  // Free Q&A: generate a brand-new case from the material via a generative engine.
+  const generateCase = useCallback(async () => {
+    if (!kbChapters.length) return
+    if (!generativeAvailable(settings, webllm.status === 'ready')) {
+      setLoadError('To generate a new case, enable Claude (server/API) or load the local LLM in Settings.')
+      setShowSettings(true)
+      return
+    }
+    setGenerating(true)
+    setLoadError(null)
+    try {
+      const chapter = kbChapters[Math.floor(Math.random() * kbChapters.length)]
+      const material = (await loadChunk(chapter.file)).slice(0, 8000)
+      const raw = await generativeChat({
+        system:
+          'You generate realistic General Surgery oral-exam clinical cases in English, based ONLY on the given material. '
+          + 'Return ONLY a valid JSON object, no extra text or markdown.',
+        messages: [
+          {
+            id: 'gen',
+            role: 'user',
+            content:
+              `Material (topic "${chapter.title}"):\n${material}\n\n`
+              + 'Create a novel, realistic oral-exam clinical case based on this material. '
+              + 'Exact JSON: {"title": string, "topic": string, "presentation": string (chief complaint, history, exam, vitals, initial tests; viva style), "keyPoints": string[] (4 items)}',
+          },
+        ],
+        settings,
+        localGenerate: webllm.generate,
+        maxTokens: 900,
+      })
+      const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim())
+      const newCase: ClinicalCase = {
+        id: `gen-${Date.now()}`,
+        titulo: parsed.title || chapter.title,
+        tema: parsed.topic || chapter.block_name,
+        presentacion: parsed.presentation || '',
+        puntosClave: Array.isArray(parsed.keyPoints) ? parsed.keyPoints : [],
+        fuente: chapter.id,
+      }
+      tts.cancel()
+      qa.reset()
+      setCases((prev) => {
+        const next = [...prev, newCase]
+        setCaseIdx(next.length - 1)
+        return next
+      })
+    } catch (e) {
+      setLoadError(e instanceof AnthropicError ? e.message : 'Could not generate the case (invalid response).')
+    } finally {
+      setGenerating(false)
+    }
+  }, [settings, kbChapters, qa, tts, webllm])
 
   const handleExamAnswer = useCallback((text: string) => exam.answer(text), [exam])
 
@@ -220,19 +296,38 @@ export default function App() {
             }}
           />
         ) : (
-          <Chat
-            messages={qa.messages}
-            loading={qa.loading}
-            micSupported={stt.supported}
-            listening={stt.listening}
-            interimText={stt.interimText}
-            micError={stt.error}
-            apiError={qa.error}
-            onMicStart={stt.start}
-            onMicStop={stt.stop}
-            onSubmitText={handleQaAsk}
-            onSpeak={tts.supported ? speak : undefined}
-          />
+          <div className="flex h-full flex-col">
+            <CaseBar
+              activeCase={cases.length ? activeCase : null}
+              index={caseIdx}
+              total={cases.length}
+              onChange={changeCase}
+              onGenerate={generateCase}
+              generating={generating}
+            />
+            <div className="min-h-0 flex-1">
+              <Chat
+                messages={qa.messages}
+                loading={qa.loading}
+                micSupported={stt.supported}
+                listening={stt.listening}
+                interimText={stt.interimText}
+                micError={stt.error}
+                apiError={qa.error}
+                onMicStart={stt.start}
+                onMicStop={stt.stop}
+                onSubmitText={handleQaAsk}
+                onSpeak={tts.supported ? speak : undefined}
+                emptyHint={
+                  <>
+                    Ask about this case — or anything in the course material.
+                    <br />
+                    Use “↻ Change case” above to switch.
+                  </>
+                }
+              />
+            </div>
+          </div>
         )}
       </div>
 

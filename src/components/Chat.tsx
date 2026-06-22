@@ -16,6 +16,7 @@ interface Props {
   onSubmitText: (text: string) => void
   onSpeak?: (text: string) => void
   disabled?: boolean
+  emptyHint?: React.ReactNode
 }
 
 export function Chat({
@@ -31,6 +32,7 @@ export function Chat({
   onSubmitText,
   onSpeak,
   disabled,
+  emptyHint,
 }: Props) {
   const [text, setText] = useState('')
   const endRef = useRef<HTMLDivElement>(null)
@@ -51,9 +53,13 @@ export function Chat({
       <div className="flex-1 space-y-3 overflow-y-auto px-1 py-3">
         {messages.length === 0 && (
           <div className="mt-6 text-center text-sm text-slate-500">
-            Ask anything about the course material — by voice or text.
-            <br />
-            Answers are grounded only in the course content.
+            {emptyHint ?? (
+              <>
+                Ask anything about the course material — by voice or text.
+                <br />
+                Answers are grounded only in the course content.
+              </>
+            )}
           </div>
         )}
         {messages.map((m) => (
