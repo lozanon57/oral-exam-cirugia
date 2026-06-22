@@ -31,6 +31,9 @@ export function useSpeechRecognition(
 
   const recognitionRef = useRef<SpeechRecognition | null>(null)
   const finalRef = useRef('')
+  // Intended listening state: stays true until the user presses stop, so we can
+  // keep the session alive across silence/timeouts (continuous dictation).
+  const listeningRef = useRef(false)
   // Keep the latest callback without re-creating recognition.
   const onResultRef = useRef(onResult)
   useEffect(() => {
@@ -41,7 +44,7 @@ export function useSpeechRecognition(
     if (!Ctor) return
     const recognition = new Ctor()
     recognition.lang = lang
-    recognition.continuous = false
+    recognition.continuous = true
     recognition.interimResults = true
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
@@ -57,12 +60,28 @@ export function useSpeechRecognition(
     }
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-      if (event.error === 'no-speech') setError('No speech detected. Try again.')
-      else if (event.error === 'not-allowed') setError('Microphone permission denied.')
-      else if (event.error !== 'aborted') setError(`Recognition error: ${event.error}`)
+      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+        listeningRef.current = false
+        setError('Microphone permission denied.')
+      } else if (event.error === 'no-speech' || event.error === 'aborted') {
+        // Ignore — in continuous mode we keep listening (onend will restart).
+      } else {
+        setError(`Recognition error: ${event.error}`)
+      }
     }
 
     recognition.onend = () => {
+      // If the user has NOT pressed stop, the engine ended on its own (silence /
+      // browser timeout) — restart to keep one continuous session going.
+      if (listeningRef.current) {
+        try {
+          recognition.start()
+        } catch {
+          /* will retry on next tick if needed */
+        }
+        return
+      }
+      // User pressed stop: finish and submit the full transcript.
       setListening(false)
       const text = finalRef.current.trim()
       setInterimText('')
@@ -84,20 +103,24 @@ export function useSpeechRecognition(
   }, [Ctor, lang])
 
   const start = useCallback(() => {
-    if (!recognitionRef.current || listening) return
+    if (!recognitionRef.current || listeningRef.current) return
     setError(null)
     finalRef.current = ''
     setInterimText('')
+    listeningRef.current = true
     try {
       recognitionRef.current.start()
       setListening(true)
     } catch {
       // start() throws if already started; ignore.
+      listeningRef.current = false
     }
-  }, [listening])
+  }, [])
 
   const stop = useCallback(() => {
     if (!recognitionRef.current) return
+    // Mark intent first so onend submits instead of restarting.
+    listeningRef.current = false
     try {
       recognitionRef.current.stop()
     } catch {
