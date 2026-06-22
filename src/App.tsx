@@ -230,7 +230,7 @@ export default function App() {
                 disabled={qa.loading || qa.messages.length === 0}
                 className="shrink-0 rounded-lg border border-exam-border bg-exam-panel2 px-3 py-1.5 text-sm text-slate-200 hover:bg-exam-border disabled:opacity-40"
               >
-                ↻ Refresh / New
+                ↻ New conversation
               </button>
             </div>
             <div className="min-h-0 flex-1">
