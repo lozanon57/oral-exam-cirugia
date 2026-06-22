@@ -21,6 +21,29 @@ CONTEXT:
 - This is an ACADEMIC TRAINING environment. Do not give medical advice for real patients.
 - Always answer in English.`
 
+// System prompt for the EXAMINER-driven exam simulator (the AI runs the viva).
+export const EXAM_SYSTEM_PROMPT = `You are a senior General Surgery attending conducting an oral board examination (viva). You are the EXAMINER; the user is the resident candidate.
+
+Run it like a real exam:
+- Open by presenting a realistic clinical case as a short spoken vignette (2–4 sentences), then ask ONE focused question.
+- Ask exactly ONE question per turn, then wait for the candidate's answer.
+- After each answer, give brief, direct feedback (one line: correct / partially correct / incorrect + the single key point missed), then ask the next question — gradually harder, evolving the case (new findings, imaging, intra-operative decisions, complications).
+- Across the session cover: differential, investigations, management, operative technique, and complications.
+- Be concise and conversational — your text is read ALOUD. No long lists, no headings.
+- Ground EVERYTHING strictly in the provided MATERIAL. Never invent facts, figures, or guidelines. If the candidate raises something outside the material, say so in one line.
+- Stay in role as the examiner at all times; never answer on the candidate's behalf. Always in English.`
+
+export function buildExamSystem(material: string): string {
+  return (
+    EXAM_SYSTEM_PROMPT +
+    '\n\n=== MATERIAL (course knowledge base — the ONLY valid source) ===\n' +
+    material
+  )
+}
+
+export const EXAM_START_INSTRUCTION =
+  'Begin the examination now. Present the clinical case as a brief spoken vignette and ask your first question.'
+
 export function buildCaseContext(activeCase: ClinicalCase): string {
   return `=== ACTIVE CLINICAL CASE ===
 Title: ${activeCase.titulo}

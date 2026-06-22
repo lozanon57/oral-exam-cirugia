@@ -51,9 +51,9 @@ export function Chat({
       <div className="flex-1 space-y-3 overflow-y-auto px-1 py-3">
         {messages.length === 0 && (
           <div className="mt-6 text-center text-sm text-slate-500">
-            Tap the microphone and ask your question about the case.
+            Ask anything about the course material — by voice or text.
             <br />
-            The examiner answers from the course material.
+            Answers are grounded only in the course content.
           </div>
         )}
         {messages.map((m) => (

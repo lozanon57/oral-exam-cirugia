@@ -1,16 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { AppSettings, ClinicalCase, KbChapter } from './lib/types'
-import { DEFAULT_MODEL, browserChat, AnthropicError } from './lib/anthropicClient'
+import { DEFAULT_MODEL } from './lib/anthropicClient'
 import { DEFAULT_LOCAL_MODEL } from './lib/engines/webllmEngine'
-import { loadCases, loadKbIndex, loadChunk } from './data/loadContent'
 import { PROXY_MODE } from './lib/config'
-import { proxyChat } from './lib/proxyClient'
+import { generativeAvailable } from './lib/generate'
+import { loadKbIndex } from './data/loadContent'
 import { useChat } from './hooks/useChat'
+import { useExam } from './hooks/useExam'
 import { useSpeechRecognition } from './hooks/useSpeechRecognition'
 import { useSpeechSynthesis } from './hooks/useSpeechSynthesis'
 import { useWebLLM } from './hooks/useWebLLM'
 import { Chat } from './components/Chat'
-import { CaseCard } from './components/CaseCard'
+import { ExamView } from './components/ExamView'
 import { Settings } from './components/Settings'
 import { PasswordGate } from './components/PasswordGate'
 
@@ -26,6 +27,19 @@ const DEFAULT_SETTINGS: AppSettings = {
   rate: 1,
 }
 
+// Free Q&A is not tied to a preset case; a neutral pseudo-case lets the existing
+// retrieval/chat pipeline run with the question driving relevance.
+const GENERIC_CASE: ClinicalCase = {
+  id: 'free',
+  titulo: '',
+  tema: 'General Surgery',
+  presentacion: 'Free study question (no specific case).',
+  puntosClave: [],
+  fuente: '',
+}
+
+type Tab = 'exam' | 'qa'
+
 function loadSettings(): AppSettings {
   try {
     const raw = localStorage.getItem(SETTINGS_KEY)
@@ -39,16 +53,14 @@ function loadSettings(): AppSettings {
 export default function App() {
   const [settings, setSettings] = useState<AppSettings>(loadSettings)
   const [showSettings, setShowSettings] = useState(false)
-  // In proxy mode the whole app is gated behind the server-validated password.
   const [unlocked, setUnlocked] = useState<boolean>(
     !PROXY_MODE || sessionStorage.getItem('oral-exam-unlocked') === '1',
   )
+  const [tab, setTab] = useState<Tab>('exam')
 
-  const [cases, setCases] = useState<ClinicalCase[]>([])
   const [kbChapters, setKbChapters] = useState<KbChapter[]>([])
-  const [caseIdx, setCaseIdx] = useState(0)
   const [loadError, setLoadError] = useState<string | null>(null)
-  const [generating, setGenerating] = useState(false)
+  const [examMuted, setExamMuted] = useState(false)
 
   const tts = useSpeechSynthesis()
   const webllm = useWebLLM()
@@ -58,120 +70,62 @@ export default function App() {
   }, [settings])
 
   useEffect(() => {
-    Promise.all([loadCases(), loadKbIndex()])
-      .then(([c, kb]) => {
-        setCases(c.casos)
-        setKbChapters(kb.chapters)
-        if (c.casos.length) setCaseIdx(Math.floor(Math.random() * c.casos.length))
-      })
+    loadKbIndex()
+      .then((kb) => setKbChapters(kb.chapters))
       .catch((e) => setLoadError(e?.message || 'Could not load content.'))
   }, [])
-
-  const activeCase = cases[caseIdx] ?? null
-
-  const chat = useChat({
-    settings,
-    activeCase,
-    kbChapters,
-    localGenerate: webllm.generate,
-    localReady: webllm.status === 'ready',
-  })
 
   const speak = useCallback(
     (text: string) => tts.speak(text, settings.voiceURI || undefined, settings.rate),
     [tts, settings.voiceURI, settings.rate],
   )
 
-  const handleAsk = useCallback(
-    async (question: string) => {
-      const answer = await chat.ask(question)
-      if (answer && settings.ttsEnabled) speak(answer)
+  // Examiner messages are read aloud unless muted.
+  const speakExaminer = useCallback(
+    (text: string) => {
+      if (!examMuted && tts.supported) speak(text)
     },
-    [chat, settings.ttsEnabled, speak],
+    [examMuted, tts, speak],
   )
 
-  const stt = useSpeechRecognition(handleAsk)
+  const exam = useExam({
+    settings,
+    kbChapters,
+    localGenerate: webllm.generate,
+    onExaminer: speakExaminer,
+  })
 
-  const changeCase = useCallback(() => {
-    tts.cancel()
-    chat.reset()
-    setCaseIdx((i) => (cases.length ? (i + 1) % cases.length : 0))
-  }, [cases.length, chat, tts])
+  const qa = useChat({
+    settings,
+    activeCase: GENERIC_CASE,
+    kbChapters,
+    localGenerate: webllm.generate,
+    localReady: webllm.status === 'ready',
+  })
 
-  // Generate a brand-new case from the knowledge base using a generative engine
-  // (local LLM if loaded, otherwise the API if a key is set).
-  const generateCase = useCallback(async () => {
-    if (!kbChapters.length) return
-    const canLocal = webllm.status === 'ready' && webllm.generate
-    const canApi = PROXY_MODE || !!settings.apiKey.trim()
-    if (!canLocal && !canApi) {
-      setLoadError('To generate a new case, load the local LLM or add an API key in Settings.')
-      setShowSettings(true)
-      return
-    }
-    setGenerating(true)
-    setLoadError(null)
-    try {
-      const chapter = kbChapters[Math.floor(Math.random() * kbChapters.length)]
-      const material = (await loadChunk(chapter.file)).slice(0, 8000)
-      const sys =
-        'You generate realistic General Surgery oral-board clinical cases in English, based ONLY on the given material. '
-        + 'Return ONLY a valid JSON object, no extra text or markdown.'
-      const userPrompt =
-        `Material (topic "${chapter.title}"):\n${material}\n\n`
-        + 'Create a novel, realistic oral-exam clinical case based on this material. '
-        + 'Exact JSON format: {"title": string, "topic": string, "presentation": string (chief complaint, history, exam, vitals and initial tests, viva style), "keyPoints": string[] (4 items)}'
+  const handleQaAsk = useCallback(
+    async (question: string) => {
+      const answer = await qa.ask(question)
+      if (answer && settings.ttsEnabled) speak(answer)
+    },
+    [qa, settings.ttsEnabled, speak],
+  )
 
-      let raw: string
-      if (canLocal) {
-        raw = await webllm.generate!(sys, [{ role: 'user', content: userPrompt }])
-      } else if (PROXY_MODE) {
-        raw = await proxyChat({
-          model: settings.model,
-          system: sys,
-          messages: [{ id: 'gen', role: 'user', content: userPrompt }],
-          maxTokens: 900,
-        })
-      } else {
-        raw = await browserChat({
-          apiKey: settings.apiKey,
-          model: settings.model,
-          system: sys,
-          messages: [{ id: 'gen', role: 'user', content: userPrompt }],
-          maxTokens: 900,
-        })
-      }
-      const jsonText = raw.replace(/```json|```/g, '').trim()
-      const parsed = JSON.parse(jsonText)
-      const newCase: ClinicalCase = {
-        id: `gen-${Date.now()}`,
-        titulo: parsed.title || chapter.title,
-        tema: parsed.topic || chapter.block_name,
-        presentacion: parsed.presentation || '',
-        puntosClave: Array.isArray(parsed.keyPoints) ? parsed.keyPoints : [],
-        fuente: chapter.id,
-      }
-      tts.cancel()
-      chat.reset()
-      setCases((prev) => {
-        const next = [...prev, newCase]
-        setCaseIdx(next.length - 1)
-        return next
-      })
-    } catch (e) {
-      const msg = e instanceof AnthropicError ? e.message : 'Could not generate the case (invalid response).'
-      setLoadError(msg)
-    } finally {
-      setGenerating(false)
-    }
-  }, [settings, kbChapters, chat, tts, webllm])
+  const handleExamAnswer = useCallback((text: string) => exam.answer(text), [exam])
 
-  const hasContent = cases.length > 0 && kbChapters.length > 0
+  // One shared speech recogniser; route the transcript to the active tab.
+  const tabRef = useRef<Tab>(tab)
+  tabRef.current = tab
+  const voiceRouter = useCallback(
+    (text: string) => {
+      if (tabRef.current === 'exam') exam.answer(text)
+      else handleQaAsk(text)
+    },
+    [exam, handleQaAsk],
+  )
+  const stt = useSpeechRecognition(voiceRouter)
 
-  const headerSubtitle = useMemo(() => {
-    if (!stt.supported) return 'Voice not supported here · use text mode (Chrome recommended)'
-    return 'Oral-exam training · tap the mic and ask'
-  }, [stt.supported])
+  const generativeOk = generativeAvailable(settings, webllm.status === 'ready')
 
   const engineBadge = useMemo(() => {
     const apiOn = PROXY_MODE || !!settings.apiKey
@@ -184,6 +138,19 @@ export default function App() {
     return map[settings.engine]
   }, [settings.engine, settings.apiKey, webllm.status])
 
+  const stopVoice = useCallback(() => {
+    tts.cancel()
+    stt.stop()
+  }, [tts, stt])
+
+  const switchTab = useCallback(
+    (next: Tab) => {
+      stopVoice()
+      setTab(next)
+    },
+    [stopVoice],
+  )
+
   if (!unlocked) return <PasswordGate onUnlock={() => setUnlocked(true)} />
 
   return (
@@ -191,7 +158,9 @@ export default function App() {
       <header className="flex items-center justify-between py-3">
         <div>
           <h1 className="text-base font-bold leading-tight sm:text-lg">Oral Exam · General Surgery</h1>
-          <p className="text-[11px] text-slate-500 sm:text-xs">{headerSubtitle}</p>
+          <p className="text-[11px] text-slate-500 sm:text-xs">
+            {stt.supported ? 'Voice viva · grounded in the course material' : 'Voice not supported · text mode (Chrome recommended)'}
+          </p>
         </div>
         <button
           onClick={() => setShowSettings(true)}
@@ -203,40 +172,67 @@ export default function App() {
         </button>
       </header>
 
+      {/* Tabs */}
+      <div className="mb-3 flex gap-1 rounded-xl border border-exam-border bg-exam-panel p-1">
+        <button
+          onClick={() => switchTab('exam')}
+          className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition ${
+            tab === 'exam' ? 'bg-exam-accent text-white' : 'text-slate-300 hover:bg-exam-panel2'
+          }`}
+        >
+          🎓 Exam simulator
+        </button>
+        <button
+          onClick={() => switchTab('qa')}
+          className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition ${
+            tab === 'qa' ? 'bg-exam-accent text-white' : 'text-slate-300 hover:bg-exam-panel2'
+          }`}
+        >
+          💬 Free Q&A
+        </button>
+      </div>
+
       {loadError && (
         <div className="mb-2 rounded-lg border border-exam-danger/40 bg-exam-danger/10 px-3 py-2 text-xs text-red-300">
           {loadError}
         </div>
       )}
 
-      <div className="mb-3">
-        <CaseCard
-          activeCase={activeCase}
-          index={caseIdx}
-          total={cases.length}
-          onChange={changeCase}
-          onGenerate={generateCase}
-          generating={generating}
-        />
-      </div>
-
       <div className="min-h-0 flex-1">
-        {hasContent ? (
-          <Chat
-            messages={chat.messages}
-            loading={chat.loading}
+        {tab === 'exam' ? (
+          <ExamView
+            exam={exam}
+            kbChapters={kbChapters}
+            available={generativeOk}
             micSupported={stt.supported}
             listening={stt.listening}
             interimText={stt.interimText}
             micError={stt.error}
-            apiError={chat.error}
             onMicStart={stt.start}
             onMicStop={stt.stop}
-            onSubmitText={handleAsk}
+            onAnswer={handleExamAnswer}
             onSpeak={tts.supported ? speak : undefined}
+            speaking={tts.speaking}
+            muted={examMuted}
+            onToggleMute={() => {
+              if (!examMuted) tts.cancel()
+              setExamMuted((m) => !m)
+            }}
           />
         ) : (
-          !loadError && <div className="py-10 text-center text-sm text-slate-500">Loading content…</div>
+          <Chat
+            messages={qa.messages}
+            loading={qa.loading}
+            micSupported={stt.supported}
+            listening={stt.listening}
+            interimText={stt.interimText}
+            micError={stt.error}
+            apiError={qa.error}
+            onMicStart={stt.start}
+            onMicStop={stt.stop}
+            onSubmitText={handleQaAsk}
+            onSpeak={tts.supported ? speak : undefined}
+          />
         )}
       </div>
 
