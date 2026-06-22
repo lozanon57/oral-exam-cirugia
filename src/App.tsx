@@ -113,6 +113,12 @@ export default function App() {
     [qa, settings.ttsEnabled, speak],
   )
 
+  // Free Q&A: clear the conversation and start a fresh session.
+  const handleQaReset = useCallback(() => {
+    tts.cancel()
+    qa.reset()
+  }, [tts, qa])
+
   // One shared speech recogniser; route the transcript to the active tab.
   const tabRef = useRef<Tab>(tab)
   tabRef.current = tab
@@ -216,26 +222,40 @@ export default function App() {
             }}
           />
         ) : (
-          <Chat
-            messages={qa.messages}
-            loading={qa.loading}
-            micSupported={stt.supported}
-            listening={stt.listening}
-            interimText={stt.interimText}
-            micError={stt.error}
-            apiError={qa.error}
-            onMicStart={stt.start}
-            onMicStop={stt.stop}
-            onSubmitText={handleQaAsk}
-            onSpeak={tts.supported ? speak : undefined}
-            emptyHint={
-              <>
-                You are the examiner — ask a question by voice or text.
-                <br />
-                The system answers concisely, exam-style, from the course material.
-              </>
-            }
-          />
+          <div className="flex h-full flex-col">
+            <div className="mb-2 flex items-center justify-between gap-2 rounded-lg border border-exam-border bg-exam-panel px-3 py-2">
+              <span className="text-xs text-slate-400">You are the examiner · the system answers exam-style</span>
+              <button
+                onClick={handleQaReset}
+                disabled={qa.loading || qa.messages.length === 0}
+                className="shrink-0 rounded-lg border border-exam-border bg-exam-panel2 px-3 py-1.5 text-sm text-slate-200 hover:bg-exam-border disabled:opacity-40"
+              >
+                ↻ Refresh / New
+              </button>
+            </div>
+            <div className="min-h-0 flex-1">
+              <Chat
+                messages={qa.messages}
+                loading={qa.loading}
+                micSupported={stt.supported}
+                listening={stt.listening}
+                interimText={stt.interimText}
+                micError={stt.error}
+                apiError={qa.error}
+                onMicStart={stt.start}
+                onMicStop={stt.stop}
+                onSubmitText={handleQaAsk}
+                onSpeak={tts.supported ? speak : undefined}
+                emptyHint={
+                  <>
+                    You are the examiner — ask a question by voice or text.
+                    <br />
+                    The system answers concisely, exam-style, from the course material.
+                  </>
+                }
+              />
+            </div>
+          </div>
         )}
       </div>
 
