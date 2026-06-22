@@ -10,6 +10,21 @@ Live app: **https://lozanon57.github.io/oral-exam-cirugia/**
 
 ---
 
+## Access
+
+This deployment is **password-gated** and runs Claude through a **secure server proxy**
+(Cloudflare Worker) — the API key is never in the browser. Open the app, enter the password,
+and ask. No API key or setup needed by the user.
+
+- Proxy worker: `https://oral-exam-proxy.lozanon57.workers.dev` (code in [`worker/`](worker/))
+- The key + password live as Cloudflare **secrets** (`ANTHROPIC_API_KEY`, `APP_PASSWORD`).
+- Frontend proxy mode is enabled by the `VITE_PROXY_URL` build variable (GitHub repo variable).
+
+To change the password: `cd worker && npx wrangler secret put APP_PASSWORD`.
+To rotate the key: `cd worker && npx wrangler secret put ANTHROPIC_API_KEY` (then revoke the old one).
+
+---
+
 ## No API key needed — three answer engines (hybrid)
 
 The answer is produced **inside your browser**. Pick the engine in **⚙︎ Settings → Answer engine**:
