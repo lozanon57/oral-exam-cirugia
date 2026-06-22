@@ -25,7 +25,11 @@ jobs:
           cache: npm
       - run: npm ci
       # Content is committed (public/content), so the build is self-contained.
+      # VITE_PROXY_URL (repo variable) puts the app in proxy mode (no browser key,
+      # password-gated). Leave it unset to fall back to local/wiki/own-key mode.
       - run: npm run build
+        env:
+          VITE_PROXY_URL: ${{ vars.VITE_PROXY_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { AppSettings } from '../lib/types'
 import { AVAILABLE_MODELS } from '../lib/anthropicClient'
 import { LOCAL_MODELS } from '../lib/engines/webllmEngine'
+import { PROXY_MODE } from '../lib/config'
 import type { UseWebLLM } from '../hooks/useWebLLM'
 
 interface Props {
@@ -13,10 +14,16 @@ interface Props {
 }
 
 const ENGINE_OPTIONS: { value: AppSettings['engine']; label: string; hint: string }[] = [
-  { value: 'auto', label: 'Auto', hint: 'Best available: local LLM → API (if key) → wiki. Escalates to API when needed.' },
+  { value: 'auto', label: 'Auto', hint: 'Best available: local LLM → Claude → wiki. Escalates to Claude when needed.' },
   { value: 'wiki', label: 'Wiki (offline)', hint: 'Extractive answers from the material. No key, works everywhere.' },
   { value: 'local', label: 'Local LLM', hint: 'In-browser model via WebGPU. No key. Load it below.' },
-  { value: 'api', label: 'Claude API', hint: 'Best quality. Requires an Anthropic API key (below).' },
+  {
+    value: 'api',
+    label: 'Claude',
+    hint: PROXY_MODE
+      ? 'Best quality. Runs via the secure server proxy (key managed for you).'
+      : 'Best quality. Requires an Anthropic API key (below).',
+  },
 ]
 
 export function Settings({ settings, voices, webllm, onChange, onClose }: Props) {
@@ -107,19 +114,28 @@ export function Settings({ settings, voices, webllm, onChange, onClose }: Props)
           </p>
         </div>
 
-        {/* API key */}
-        <label className="mb-1 block text-sm font-medium text-slate-300">Anthropic API key (optional)</label>
-        <input
-          type="password"
-          value={draft.apiKey}
-          onChange={(e) => setDraft({ ...draft, apiKey: e.target.value })}
-          placeholder="sk-ant-… (only needed for the API engine)"
-          className="mb-1 w-full rounded-lg border border-exam-border bg-exam-bg px-3 py-2 text-sm outline-none focus:border-exam-accent"
-        />
-        <p className="mb-3 text-xs text-slate-500">
-          Stored only in this browser (localStorage). Get one at console.anthropic.com.
-        </p>
-        <label className="mb-1 block text-sm font-medium text-slate-300">API model</label>
+        {/* API key — hidden in proxy mode (key is server-managed) */}
+        {PROXY_MODE ? (
+          <p className="mb-4 rounded-lg border border-exam-ok/30 bg-exam-ok/5 px-3 py-2 text-xs text-slate-300">
+            🔒 Claude runs through a secure server proxy — the API key is managed for you and never
+            stored in this browser. Access is controlled by your password.
+          </p>
+        ) : (
+          <>
+            <label className="mb-1 block text-sm font-medium text-slate-300">Anthropic API key (optional)</label>
+            <input
+              type="password"
+              value={draft.apiKey}
+              onChange={(e) => setDraft({ ...draft, apiKey: e.target.value })}
+              placeholder="sk-ant-… (only needed for the API engine)"
+              className="mb-1 w-full rounded-lg border border-exam-border bg-exam-bg px-3 py-2 text-sm outline-none focus:border-exam-accent"
+            />
+            <p className="mb-3 text-xs text-slate-500">
+              Stored only in this browser (localStorage). Get one at console.anthropic.com.
+            </p>
+          </>
+        )}
+        <label className="mb-1 block text-sm font-medium text-slate-300">Claude model</label>
         <select
           value={draft.model}
           onChange={(e) => setDraft({ ...draft, model: e.target.value })}

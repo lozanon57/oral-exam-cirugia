@@ -1,6 +1,8 @@
 import type { AnswerContext, AnswerResult, EngineKind, LocalGenerate } from './types'
 import { wikiAnswer } from './wikiEngine'
 import { browserChat, AnthropicError } from '../anthropicClient'
+import { proxyChat } from '../proxyClient'
+import { PROXY_MODE } from '../config'
 import { SYSTEM_PROMPT, buildUserTurn } from '../prompts'
 import type { ChatMessage } from '../types'
 
@@ -18,8 +20,10 @@ interface RouterDeps {
   localReady: boolean
 }
 
+// The API tier is available either via the server proxy (no key in browser) or
+// with a user-supplied key (direct browser call).
 function apiAvailable(ctx: AnswerContext): boolean {
-  return !!ctx.settings.apiKey?.trim()
+  return PROXY_MODE || !!ctx.settings.apiKey?.trim()
 }
 
 // Turn visible history + current question into provider messages with context
@@ -43,12 +47,15 @@ async function runApi(ctx: AnswerContext): Promise<AnswerResult> {
       ? { ...m, content: buildUserTurn(ctx.activeCase, ctx.chunks, m.content) }
       : m,
   )
-  const text = await browserChat({
-    apiKey: ctx.settings.apiKey,
-    model: ctx.settings.model,
-    system: SYSTEM_PROMPT,
-    messages: apiMessages,
-  })
+  // Proxy mode: no key in the browser. Direct mode: user's own key.
+  const text = PROXY_MODE
+    ? await proxyChat({ model: ctx.settings.model, system: SYSTEM_PROMPT, messages: apiMessages })
+    : await browserChat({
+        apiKey: ctx.settings.apiKey,
+        model: ctx.settings.model,
+        system: SYSTEM_PROMPT,
+        messages: apiMessages,
+      })
   return { text, engine: 'api', sources: ctx.chunks.map((c) => c.chapterId) }
 }
 

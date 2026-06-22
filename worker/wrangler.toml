@@ -1,0 +1,12 @@
+name = "oral-exam-proxy"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Origin allowed to call this worker (the GitHub Pages site).
+# localhost is also allowed automatically for local dev.
+[vars]
+ALLOWED_ORIGIN = "https://lozanon57.github.io"
+
+# Secrets are NOT stored here. Set them with:
+#   wrangler secret put ANTHROPIC_API_KEY
+#   wrangler secret put APP_PASSWORD

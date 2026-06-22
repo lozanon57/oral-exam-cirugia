@@ -3,6 +3,8 @@ import type { AppSettings, ClinicalCase, KbChapter } from './lib/types'
 import { DEFAULT_MODEL, browserChat, AnthropicError } from './lib/anthropicClient'
 import { DEFAULT_LOCAL_MODEL } from './lib/engines/webllmEngine'
 import { loadCases, loadKbIndex, loadChunk } from './data/loadContent'
+import { PROXY_MODE } from './lib/config'
+import { proxyChat } from './lib/proxyClient'
 import { useChat } from './hooks/useChat'
 import { useSpeechRecognition } from './hooks/useSpeechRecognition'
 import { useSpeechSynthesis } from './hooks/useSpeechSynthesis'
@@ -10,6 +12,7 @@ import { useWebLLM } from './hooks/useWebLLM'
 import { Chat } from './components/Chat'
 import { CaseCard } from './components/CaseCard'
 import { Settings } from './components/Settings'
+import { PasswordGate } from './components/PasswordGate'
 
 const SETTINGS_KEY = 'oral-exam-settings-v2'
 
@@ -36,6 +39,10 @@ function loadSettings(): AppSettings {
 export default function App() {
   const [settings, setSettings] = useState<AppSettings>(loadSettings)
   const [showSettings, setShowSettings] = useState(false)
+  // In proxy mode the whole app is gated behind the server-validated password.
+  const [unlocked, setUnlocked] = useState<boolean>(
+    !PROXY_MODE || sessionStorage.getItem('oral-exam-unlocked') === '1',
+  )
 
   const [cases, setCases] = useState<ClinicalCase[]>([])
   const [kbChapters, setKbChapters] = useState<KbChapter[]>([])
@@ -96,7 +103,7 @@ export default function App() {
   const generateCase = useCallback(async () => {
     if (!kbChapters.length) return
     const canLocal = webllm.status === 'ready' && webllm.generate
-    const canApi = !!settings.apiKey.trim()
+    const canApi = PROXY_MODE || !!settings.apiKey.trim()
     if (!canLocal && !canApi) {
       setLoadError('To generate a new case, load the local LLM or add an API key in Settings.')
       setShowSettings(true)
@@ -118,6 +125,13 @@ export default function App() {
       let raw: string
       if (canLocal) {
         raw = await webllm.generate!(sys, [{ role: 'user', content: userPrompt }])
+      } else if (PROXY_MODE) {
+        raw = await proxyChat({
+          model: settings.model,
+          system: sys,
+          messages: [{ id: 'gen', role: 'user', content: userPrompt }],
+          maxTokens: 900,
+        })
       } else {
         raw = await browserChat({
           apiKey: settings.apiKey,
@@ -160,14 +174,17 @@ export default function App() {
   }, [stt.supported])
 
   const engineBadge = useMemo(() => {
+    const apiOn = PROXY_MODE || !!settings.apiKey
     const map: Record<AppSettings['engine'], string> = {
-      auto: webllm.status === 'ready' ? 'Auto · Local LLM' : settings.apiKey ? 'Auto · API' : 'Auto · Wiki',
+      auto: webllm.status === 'ready' ? 'Auto · Local LLM' : apiOn ? 'Auto · Claude' : 'Auto · Wiki',
       wiki: 'Wiki (offline)',
       local: webllm.status === 'ready' ? 'Local LLM' : 'Local (not loaded)',
-      api: settings.apiKey ? 'Claude API' : 'API (no key)',
+      api: apiOn ? 'Claude' : 'API (no key)',
     }
     return map[settings.engine]
   }, [settings.engine, settings.apiKey, webllm.status])
+
+  if (!unlocked) return <PasswordGate onUnlock={() => setUnlocked(true)} />
 
   return (
     <div className="mx-auto flex h-[100dvh] max-w-2xl flex-col px-3 pb-3 pt-[env(safe-area-inset-top)]">
