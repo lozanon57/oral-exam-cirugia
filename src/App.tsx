@@ -113,13 +113,34 @@ export default function App() {
     localReady: webllm.status === 'ready',
   })
 
+  // Free Q&A is a voice tab: answers are read aloud.
   const handleQaAsk = useCallback(
     async (question: string) => {
       const answer = await qa.ask(question)
-      if (answer && settings.ttsEnabled) speak(answer)
+      if (answer && tts.supported) speak(answer)
     },
-    [qa, settings.ttsEnabled, speak],
+    [qa, tts.supported, speak],
   )
+
+  // Read the active case aloud (the case is never shown as text in Free Q&A).
+  const readCaseIdRef = useRef<string | null>(null)
+  const readCase = useCallback(
+    (c: ClinicalCase | null) => {
+      if (!c || !c.presentacion || !tts.supported) return
+      readCaseIdRef.current = c.id
+      speak(c.presentacion)
+    },
+    [tts.supported, speak],
+  )
+
+  // Auto-read the case when entering Free Q&A or when the case changes.
+  useEffect(() => {
+    if (tab !== 'qa' || !cases.length) return
+    const c = cases[caseIdx]
+    if (!c || readCaseIdRef.current === c.id) return
+    readCase(c)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, caseIdx, cases.length])
 
   // Free Q&A: refresh/change the active clinical case (random) and reset the chat.
   const changeCase = useCallback(() => {
@@ -301,6 +322,9 @@ export default function App() {
               activeCase={cases.length ? activeCase : null}
               index={caseIdx}
               total={cases.length}
+              ttsSupported={tts.supported}
+              speaking={tts.speaking}
+              onReplay={() => readCase(activeCase)}
               onChange={changeCase}
               onGenerate={generateCase}
               generating={generating}
@@ -320,9 +344,9 @@ export default function App() {
                 onSpeak={tts.supported ? speak : undefined}
                 emptyHint={
                   <>
-                    Ask about this case — or anything in the course material.
+                    Listen to the case, then answer or ask by microphone.
                     <br />
-                    Use “↻ Change case” above to switch.
+                    Use “▶ Play case” to hear it again or “↻ Change case” to switch.
                   </>
                 }
               />
