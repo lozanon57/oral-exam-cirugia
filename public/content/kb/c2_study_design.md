@@ -1,8 +1,8 @@
 # Study Design — Academic Surgery — RCTs, Cohort Studies & Advanced Surgical Trial Methodology
 
-*Bloque C · Academic Surgery · PGY2-4*
+*Block C · Academic Surgery · PGY2-4*
 
-*Guías: CONSORT 2010 · STROBE 2007 · IDEAL Collaboration 2016 · ICH E9(R1) Estimand Framework*
+*Guidelines: CONSORT 2010 · STROBE 2007 · IDEAL Collaboration 2016 · ICH E9(R1) Estimand Framework*
 
 
 ## Hierarchy of Study Designs

@@ -46,7 +46,7 @@ export async function browserChat(params: ChatParams): Promise<string> {
   const { apiKey, model, system, messages, maxTokens = 1024 } = params
 
   if (!apiKey) {
-    throw new AnthropicError('Falta la API key. Añádela en Ajustes.', 401)
+    throw new AnthropicError('Missing API key. Add it in Settings.', 401)
   }
 
   let res: Response
@@ -66,9 +66,9 @@ export async function browserChat(params: ChatParams): Promise<string> {
         messages: toApiMessages(messages),
       }),
     })
-  } catch (e) {
+  } catch {
     throw new AnthropicError(
-      'No se pudo conectar con la API de Anthropic (red o CORS). Revisa tu conexión.',
+      'Could not reach the Anthropic API (network or CORS). Check your connection.',
     )
   }
 
@@ -81,19 +81,19 @@ export async function browserChat(params: ChatParams): Promise<string> {
       detail = await res.text().catch(() => '')
     }
     if (res.status === 401) {
-      throw new AnthropicError('API key inválida o sin permisos (401). Revísala en Ajustes.', 401)
+      throw new AnthropicError('Invalid API key or insufficient permissions (401). Check Settings.', 401)
     }
     if (res.status === 429) {
-      throw new AnthropicError('Límite de uso alcanzado (429). Espera un momento e inténtalo de nuevo.', 429)
+      throw new AnthropicError('Rate limit reached (429). Wait a moment and try again.', 429)
     }
-    throw new AnthropicError(`Error de la API (${res.status}): ${detail}`, res.status)
+    throw new AnthropicError(`API error (${res.status}): ${detail}`, res.status)
   }
 
   const data = await res.json()
   const text = Array.isArray(data?.content)
     ? data.content.filter((b: { type: string }) => b.type === 'text').map((b: { text: string }) => b.text).join('')
     : ''
-  return text.trim() || '(respuesta vacía)'
+  return text.trim() || '(empty response)'
 }
 
 // Single entry point so swapping to a serverless proxy is a one-line change.

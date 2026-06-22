@@ -1,8 +1,8 @@
 # Thoracic Surgery for General Surgeons — Pleural Disease, Lung Cancer, Oesophageal Surgery & Thoracic Emergencies
 
-*Bloque F · Trauma, Infections & Thoracic · PGY2-3*
+*Block F · Trauma, Infections & Thoracic · PGY2-3*
 
-*Guías: BTS Pleural Disease Guidelines 2023 · NICE NG122 Lung Cancer · ESMO Oesophageal Cancer 2022 · ESTS Guidelines*
+*Guidelines: BTS Pleural Disease Guidelines 2023 · NICE NG122 Lung Cancer · ESMO Oesophageal Cancer 2022 · ESTS Guidelines*
 
 
 ## Thoracic Anatomy
@@ -39,7 +39,7 @@ pH (complicated parapneumonic) | <7.2 → drain | N/A | pH<7.2 = drain mandatory
 Glucose (complicated parapneumonic) | <2.2 mmol/L → drain | N/A | Correlates with empyema risk
 LDH (complicated parapneumonic) | >1000 IU/L → drain | N/A | High LDH = active infection
 
-**Ensayo de referencia — MIST2 Trial — Intrapleural Fibrinolytics for Empyema:**
+**Landmark trial — MIST2 Trial — Intrapleural Fibrinolytics for Empyema:**
 
 Mesothelioma: malignant pleural mesothelioma (MPM) is strongly associated with asbestos exposure (latency 30–40 years). Histological subtypes: epithelioid (best prognosis), sarcomatoid (worst), biphasic. Diagnosis requires CT chest (pleural thickening, calcified plaques, effusion) followed by thoracoscopic biopsy (pleural fluid cytology alone insufficient — sensitivity only 30–40%). The MARS2 trial (2023, JAMA Surgery) compared extended pleurectomy/decortication (EPD) versus chemotherapy alone: EPD was associated with inferior overall survival vs no surgery (median OS 19.3 vs 24.8 months, HR 1.54 — surgery caused harm). This reversed previous practice of aggressive surgical resection. Current standard: platinum + pemetrexed chemotherapy ± bevacizumab; immunotherapy (nivolumab + ipilimumab — CheckMate 743) for first-line; pembrolizumab monotherapy in selected cases (IND.227 trial demonstrated benefit in PD-L1+ MPM).
 
@@ -64,9 +64,9 @@ IIB | T3 N0 or T2b N1 M0 | ~53% | Lobectomy + adjuvant chemo ± osimertinib
 IIIA | T1-3 N2 or T3-4 N1 | ~30–35% | Multimodal — neoadjuvant chemo-immuno (CheckMate 816) + surgery
 IIIB-IV | N3 or M1 any | <10% | Chemo-immunotherapy, targeted therapy (EGFR/ALK/ROS1)
 
-**Ensayo de referencia — VIOLET Trial — VATS vs Open Lobectomy:**
+**Landmark trial — VIOLET Trial — VATS vs Open Lobectomy:**
 
-**Ensayo de referencia — JCOG0802 — Sublobar Resection (Segmentectomy) vs Lobectomy for Small NSCLC:**
+**Landmark trial — JCOG0802 — Sublobar Resection (Segmentectomy) vs Lobectomy for Small NSCLC:**
 
 Mediastinal staging is essential before resection in clinically stage I–III NSCLC. CT is inadequate alone (sensitivity 55%, specificity 81%). Endobronchial ultrasound (EBUS) with TBNA is the first-line invasive staging modality — sensitivity 88–93%, specificity 100% for N2/N3 disease. Mediastinoscopy (cervical) remains the gold standard (sensitivity ~90%) and is used when EBUS is negative but clinical suspicion for N2 remains high. EBUS has replaced routine mediastinoscopy at most centres but confirmation mediastinoscopy ('remediastinoscopy' after neoadjuvant) is sometimes required. PET-CT identifies occult metastases and guides biopsy targets.
 
@@ -83,9 +83,9 @@ Surgical approaches: (1) Ivor Lewis oesophagectomy (right thoracotomy + laparoto
 
 Anastomotic leak occurs in 5–15% after oesophagectomy and carries significant mortality (Clavien-Dindo grade IVa). Management depends on leak severity: cervical leaks — open wound, drain, NPO, will usually heal with wound care; intrathoracic leaks — CT-guided drain + endoscopic stent (self-expanding metal stent, SEMS) as primary approach in contained leaks; reoperation for uncontained leaks with sepsis, failed stenting. Covered SEMS with concomitant drainage is now first-line for type II/III intrathoracic leaks.
 
-**Ensayo de referencia — CROSS Trial — Neoadjuvant Chemoradiotherapy for Oesophageal Cancer:**
+**Landmark trial — CROSS Trial — Neoadjuvant Chemoradiotherapy for Oesophageal Cancer:**
 
-**Ensayo de referencia — ESOPEC Trial — FLOT vs CROSS for Oesophageal Adenocarcinoma:**
+**Landmark trial — ESOPEC Trial — FLOT vs CROSS for Oesophageal Adenocarcinoma:**
 
 *Clavien-Dindo Classification of Surgical Complications*
 Grade | Definition | Examples

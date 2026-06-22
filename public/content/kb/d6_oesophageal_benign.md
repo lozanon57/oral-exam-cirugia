@@ -1,8 +1,8 @@
 # Oesophageal & Benign Gastric Disease
 
-*Bloque D · Benign Digestive Surgery · PGY2-3*
+*Block D · Benign Digestive Surgery · PGY2-3*
 
-*Guías: SAGES 2022; ESGE 2022*
+*Guidelines: SAGES 2022; ESGE 2022*
 
 
 ## GERD — Gastro-oesophageal Reflux Disease

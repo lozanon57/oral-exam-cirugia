@@ -1,8 +1,8 @@
 # Breast Surgery & Melanoma — Surgical Oncology — Breast Conservation, Oncoplastics & Cutaneous Melanoma
 
-*Bloque A · Surgical Oncology · PGY2-3*
+*Block A · Surgical Oncology · PGY2-3*
 
-*Guías: NCCN Breast Cancer v5.2025/v2.2026 · NCCN Melanoma v2.2025 · ESMO Breast 2024 · ESMO Melanoma 2023 · St Gallen Consensus 2023 · AJCC 8th Edition · SSO/ASTRO 2014*
+*Guidelines: NCCN Breast Cancer v5.2025/v2.2026 · NCCN Melanoma v2.2025 · ESMO Breast 2024 · ESMO Melanoma 2023 · St Gallen Consensus 2023 · AJCC 8th Edition · SSO/ASTRO 2014*
 
 
 ## Breast Conservation vs Mastectomy

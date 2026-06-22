@@ -1,8 +1,8 @@
 # Vascular Surgery for General Surgeons
 
-*Bloque E · Transplantation & Vascular · PGY2-3*
+*Block E · Transplantation & Vascular · PGY2-3*
 
-*Guías: ESC/ESVS 2023; SVS 2022*
+*Guidelines: ESC/ESVS 2023; SVS 2022*
 
 
 ## Abdominal Aortic Aneurysm

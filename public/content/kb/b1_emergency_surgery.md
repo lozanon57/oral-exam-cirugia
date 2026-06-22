@@ -1,8 +1,8 @@
 # Emergency Surgery — General Surgery — Peritonitis, Obstruction & Acute Abdomen
 
-*Bloque B · General Surgery · PGY1-2*
+*Block B · General Surgery · PGY1-2*
 
-*Guías: WSES Appendicitis Jerusalem Guidelines 2025 (JAMA Surgery) · WSES Diverticulitis Guidelines 2020 · EAST Practice Management Guidelines*
+*Guidelines: WSES Appendicitis Jerusalem Guidelines 2025 (JAMA Surgery) · WSES Diverticulitis Guidelines 2020 · EAST Practice Management Guidelines*
 
 
 ## Acute Appendicitis
@@ -76,7 +76,7 @@ WSES IV (complicated) | III/IV | Faecal peritonitis — free perforation | Emerg
 
 > **Hartmann's Procedure vs Primary Anastomosis — WSES 2020** — For perforated diverticulitis (Hinchey III/IV), both Hartmann's procedure and primary anastomosis with loop ileostomy (PA+LI) are acceptable options. Meta-analyses and the LADIES trial (Vennix, Lancet 2019) show equivalent mortality but higher reversal rates with PA+LI (94% vs 57% for Hartmann's). PA+LI is preferred in haemodynamically stable, non-immunocompromised patients operated by experienced laparoscopic surgeons. Hartmann's remains appropriate for haemodynamically unstable patients, faecal contamination, or inexperienced surgeons.
 
-**Ensayo de referencia — LADIES Trial:**
+**Landmark trial — LADIES Trial:**
 
 > **Board Pearl — Elective Sigmoid Resection After Diverticulitis** — Elective sigmoid colectomy after uncomplicated diverticulitis is no longer routinely recommended after a single episode. WSES 2020 guidelines recommend individualised decision-making based on: patient age (<50 has higher recurrence risk), immunosuppression, persistence of symptoms, and patient preference. After complicated diverticulitis (abscess, fistula), elective resection is generally recommended 6–8 weeks after recovery to reduce risk of recurrence with complications.
 

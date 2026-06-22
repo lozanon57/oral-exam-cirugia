@@ -1,8 +1,8 @@
 # Minimally Invasive Surgery — Laparoscopy & Robotics — Principles, Energy Devices, Operative Techniques & Evidence
 
-*Bloque G · Perioperative & Minimally Invasive · PGY1-3*
+*Block G · Perioperative & Minimally Invasive · PGY1-3*
 
-*Guías: SAGES Guidelines 2022 · EHS Hernia Guidelines 2023 · EAES/ESCP Robotic Surgery Position Statement 2023*
+*Guidelines: SAGES Guidelines 2022 · EHS Hernia Guidelines 2023 · EAES/ESCP Robotic Surgery Position Statement 2023*
 
 
 ## Principles of Laparoscopy
@@ -91,9 +91,9 @@ Total mesorectal excision (TME) — robotic vs laparoscopic: the ROLARR trial di
 
 taTME (Transanal Total Mesorectal Excision): a hybrid technique combining a transabdominal laparoscopic component with a transanal approach (purse-string closure of rectum, transanal port insertion, working bottom-up in the TME plane). Advantages: may improve access in difficult pelves (obesity, narrow pelvis, bulky tumour), potentially better distal margin. Complications specific to taTME: (1) Urethral injury — the most severe unique complication; reported in 0.5–2% of cases; results from incorrect dissection plane anteriorly entering Denonvilliers' fascia space anterior to urethra. (2) CO2 gas embolism — from transanal gas insufflation. (3) Two-team synchronisation errors. Prevention of urethral injury: strict adherence to anatomical landmarks, always start posterior and lateral, ensure rectal mucosal closure is adequate.
 
-**Ensayo de referencia — RIGHT Trial — Intracorporeal vs Extracorporeal Anastomosis (Right Hemicolectomy):**
+**Landmark trial — RIGHT Trial — Intracorporeal vs Extracorporeal Anastomosis (Right Hemicolectomy):**
 
-**Ensayo de referencia — ROLARR Trial — Robotic vs Laparoscopic TME for Rectal Cancer:**
+**Landmark trial — ROLARR Trial — Robotic vs Laparoscopic TME for Rectal Cancer:**
 
 
 ## Robotic Surgery

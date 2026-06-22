@@ -1,8 +1,8 @@
 # Small Bowel, Mesentery & Nutritional Access
 
-*Bloque D · Benign Digestive Surgery · PGY1-2*
+*Block D · Benign Digestive Surgery · PGY1-2*
 
-*Guías: ESPEN 2023; AGA 2021*
+*Guidelines: ESPEN 2023; AGA 2021*
 
 
 ## Small Bowel Anatomy & Physiology

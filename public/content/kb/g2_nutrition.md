@@ -1,8 +1,8 @@
 # Surgical Nutrition & Metabolism — Nutritional Assessment, Enteral & Parenteral Nutrition, Refeeding Syndrome
 
-*Bloque G · Perioperative & Minimally Invasive · PGY1-2*
+*Block G · Perioperative & Minimally Invasive · PGY1-2*
 
-*Guías: ESPEN Clinical Nutrition in Surgery Practical Guideline 2023 · ASPEN Guidelines 2022 · NICE CG32 Nutrition Support 2017*
+*Guidelines: ESPEN Clinical Nutrition in Surgery Practical Guideline 2023 · ASPEN Guidelines 2022 · NICE CG32 Nutrition Support 2017*
 
 
 ## Nutritional Assessment
@@ -35,7 +35,7 @@ Hyperglycaemia management: surgical stress causes insulin resistance and hypergl
 
 Immunonutrition: specific nutrients that modulate immune function. Arginine: promotes T-cell function, wound healing, nitric oxide synthesis. Omega-3 fatty acids: reduce pro-inflammatory eicosanoids, downregulate IL-1/TNF. Glutamine: primary fuel for enterocytes and immune cells. Evidence: ESPEN 2017 surgical guidelines — oral immunonutrition (arginine + omega-3 + nucleotides) for 5–7 days preoperatively recommended for malnourished patients undergoing major upper GI surgery (Level IB). Controversy exists for ICU glutamine — see Section 6.
 
-**Ensayo de referencia — NICE-SUGAR Trial — Glycaemic Control in ICU:**
+**Landmark trial — NICE-SUGAR Trial — Glycaemic Control in ICU:**
 
 
 ## Enteral Nutrition
@@ -130,6 +130,6 @@ Pancreaticoduodenectomy (Whipple) | Oral diet (ERAS Day 1) | ERAS Day 1 — oral
 Liver resection | Oral diet (ERAS Day 1–2) | ERAS Day 1–2 | Branched-chain amino acids if cirrhotic | Hypoglycaemia monitoring; glucose infusion first 24h if major hepatectomy
 ICU (critical illness) | Enteral (NGT/NJT) | Within 24–48h of ICU admission | Permissive underfeeding (40–60%) Days 1–3; full nutrition Day 4–7 | Full protein from Day 1 (1.5–2.0 g/kg); avoid early PN if EN feasible
 
-**Ensayo de referencia — CALORIES Trial — Enteral vs Parenteral Nutrition in ICU:**
+**Landmark trial — CALORIES Trial — Enteral vs Parenteral Nutrition in ICU:**
 
 > **Glutamine in ICU — Evidence Reversal (ESPEN 2023 Confirmed)** — Glutamine was the archetypal immunonutrient: primary fuel for enterocytes and immune cells; conditionally essential in critical illness (endogenous synthesis insufficient). Early RCTs showed benefit. However: REDOXS trial (NEJM 2013 — Heyland): high-dose enteral + parenteral glutamine (0.35 g/kg/day IV) in critically ill patients with multi-organ failure INCREASED 28-day mortality (32.4% vs 27.2%; p=0.05). METAPLUS trial: similar findings. **ESPEN 2023 position (confirmed)**: glutamine should NOT be given routinely to critically ill patients with organ failure or haemodynamic instability. Parenteral glutamine 0.2–0.4 g/kg/day may be appropriate in stable ICU patients on PN without organ failure. **ESPEN 2023 key updates for surgical patients:** (1) **Immunonutrition** (arginine + omega-3 + RNA): Grade A for malnourished patients undergoing major GI cancer surgery (5–7 days preoperatively + postoperative); Grade B for well-nourished patients undergoing major upper GI surgery; NOT recommended for well-nourished colorectal surgery patients. (2) **NRS-2002 screening** is mandatory for ALL surgical patients at admission — NRS-2002 ≥3 triggers mandatory nutritional assessment and may justify delaying elective surgery for 7–14 days of nutritional optimisation (Grade A). (3) **IV omega-3 enriched lipid emulsions** (fish oil-based) preferred over pure soybean oil when parenteral nutrition required perioperatively (Grade A — reduced infectious complications).

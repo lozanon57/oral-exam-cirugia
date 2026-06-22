@@ -1,8 +1,8 @@
 # Acute Diverticulitis & Colonic Benign Disease — General Surgery — Diverticular Disease, Colonic Volvulus & Pseudo-obstruction
 
-*Bloque D · Benign Digestive Surgery · PGY1-2*
+*Block D · Benign Digestive Surgery · PGY1-2*
 
-*Guías: WSES 2020 · ASCRS 2020 · ESCP 2020 · ACG Clinical Guideline 2015*
+*Guidelines: WSES 2020 · ASCRS 2020 · ESCP 2020 · ACG Clinical Guideline 2015*
 
 
 ## Diverticular Disease — Epidemiology & Pathophysiology
@@ -48,9 +48,9 @@ Severe (complicated — peritonitis) | Hinchey III or IV; free air; fecal perito
 
 **Uncomplicated acute diverticulitis** (Hinchey 0/Ia — fat stranding only, no abscess) in selected low-risk patients can be managed without antibiotics based on landmark RCT evidence. The traditional paradigm of mandatory antibiotics for all diverticulitis has been challenged.
 
-**Ensayo de referencia — AVOD Trial:**
+**Landmark trial — AVOD Trial:**
 
-**Ensayo de referencia — DIABOLO Trial:**
+**Landmark trial — DIABOLO Trial:**
 
 *Outpatient Management Criteria for Uncomplicated Diverticulitis*
 Criterion | Outpatient Safe | Inpatient Required
@@ -71,7 +71,7 @@ Follow-up compliance | Reliable | Unreliable → inpatient safer
 
 **Hinchey II (pelvic/distant abscess ≥4 cm)**: percutaneous image-guided drainage (CT or US) + antibiotics is the preferred management over immediate surgery. Drainage achieves resolution in 70–80% of patients, converting emergencies to elective procedures. Failed percutaneous drainage (fever >48h, increasing sepsis) requires surgical intervention. After successful drainage and recovery, elective sigmoid resection is discussed.
 
-**Ensayo de referencia — LADIES Trial (DIVA arm):**
+**Landmark trial — LADIES Trial (DIVA arm):**
 
 *Hartmann's Procedure vs Primary Anastomosis with Diverting Ileostomy — Comparison*
 Factor | Hartmann's Procedure | Primary Anastomosis + Diverting Ileostomy
@@ -86,7 +86,7 @@ LADIES trial conclusion | Higher permanent stoma rate | Preferred when feasible 
 
 > **Laparoscopic Peritoneal Lavage for Hinchey III — Negative Evidence** — Three major RCTs (DILALA, SCANDIV, LADIES-LOLA arm) evaluated laparoscopic peritoneal lavage (LPL) vs sigmoid resection for Hinchey III purulent diverticulitis. ALL THREE showed LPL to be INFERIOR: higher rate of reoperation (13–31% LPL vs 0–5% resection), treatment failure, and residual abscess. LPL does NOT address the perforated diverticulum. Conclusion: laparoscopic lavage CANNOT be recommended as standard treatment for Hinchey III — sigmoid resection remains the standard.
 
-**Ensayo de referencia — SCANDIV Trial:**
+**Landmark trial — SCANDIV Trial:**
 
 
 ## Elective Sigmoid Resection — Indications & Technique

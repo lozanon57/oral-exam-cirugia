@@ -16,7 +16,7 @@ export function CaseCard({ activeCase, index, total, onChange, onGenerate, gener
   if (!activeCase) {
     return (
       <div className="rounded-xl border border-exam-border bg-exam-panel p-4 text-sm text-slate-400">
-        Cargando caso clínico…
+        Loading clinical case…
       </div>
     )
   }
@@ -30,11 +30,11 @@ export function CaseCard({ activeCase, index, total, onChange, onGenerate, gener
           aria-expanded={open}
         >
           <div className="text-[11px] font-semibold uppercase tracking-wide text-exam-accent">
-            Caso {index + 1}/{total} · {activeCase.tema}
+            Case {index + 1}/{total} · {activeCase.tema}
           </div>
           <div className="mt-0.5 font-semibold text-slate-100">{activeCase.titulo}</div>
           <div className="mt-0.5 text-xs text-slate-500">
-            {open ? '▾ ocultar enunciado' : '▸ ver enunciado'}
+            {open ? '▾ hide vignette' : '▸ show vignette'}
           </div>
         </button>
       </div>
@@ -44,7 +44,7 @@ export function CaseCard({ activeCase, index, total, onChange, onGenerate, gener
           <p>{activeCase.presentacion}</p>
           {activeCase.puntosClave?.length > 0 && (
             <div className="mt-3">
-              <div className="text-xs font-semibold text-slate-400">Puntos clave a explorar:</div>
+              <div className="text-xs font-semibold text-slate-400">Key points to explore:</div>
               <ul className="mt-1 list-disc pl-5 text-xs text-slate-400">
                 {activeCase.puntosClave.map((p, i) => (
                   <li key={i}>{p}</li>
@@ -60,7 +60,7 @@ export function CaseCard({ activeCase, index, total, onChange, onGenerate, gener
           onClick={onChange}
           className="rounded-lg bg-exam-accent px-3 py-2 text-sm font-medium text-white hover:bg-exam-accentHover"
         >
-          ↻ Cambiar caso clínico
+          ↻ Change clinical case
         </button>
         {onGenerate && (
           <button
@@ -68,7 +68,7 @@ export function CaseCard({ activeCase, index, total, onChange, onGenerate, gener
             disabled={generating}
             className="rounded-lg border border-exam-border bg-exam-panel2 px-3 py-2 text-sm text-slate-200 hover:bg-exam-border disabled:opacity-50"
           >
-            {generating ? 'Generando…' : '✨ Generar caso nuevo'}
+            {generating ? 'Generating…' : '✨ Generate new case'}
           </button>
         )}
       </div>

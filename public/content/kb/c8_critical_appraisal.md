@@ -1,8 +1,8 @@
 # Critical Appraisal — Academic Surgery — RCTs, Observational Studies, Diagnostics, Economic Evaluations & Clinical Guidelines
 
-*Bloque C · Academic Surgery · PGY2-4*
+*Block C · Academic Surgery · PGY2-4*
 
-*Guías: CASP Checklists 2023 · Cochrane RoB 2.0 · ROBINS-I 2016 · QUADAS-2 2011 · CHEERS 2022 · AGREE II 2010 · GRADE 2013*
+*Guidelines: CASP Checklists 2023 · Cochrane RoB 2.0 · ROBINS-I 2016 · QUADAS-2 2011 · CHEERS 2022 · AGREE II 2010 · GRADE 2013*
 
 
 ## Critical Appraisal Framework

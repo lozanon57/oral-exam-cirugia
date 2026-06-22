@@ -1,9 +1,10 @@
 import { useCallback, useRef, useState } from 'react'
 import type { AppSettings, ChatMessage, ClinicalCase, KbChapter } from '../lib/types'
-import { sendChat, AnthropicError } from '../lib/anthropicClient'
-import { SYSTEM_PROMPT, buildCaseContext, buildKnowledgeContext } from '../lib/prompts'
+import { AnthropicError } from '../lib/anthropicClient'
 import { rankChapters, selectContextChapters, truncateChunk } from '../lib/retrieval'
 import { loadChunk } from '../data/loadContent'
+import { routeAnswer } from '../lib/engines/router'
+import type { LocalGenerate, RetrievedChunk } from '../lib/engines/types'
 
 let idCounter = 0
 const nextId = () => `m${++idCounter}_${Date.now()}`
@@ -12,6 +13,8 @@ interface UseChatArgs {
   settings: AppSettings
   activeCase: ClinicalCase | null
   kbChapters: KbChapter[]
+  localGenerate: LocalGenerate | null
+  localReady: boolean
 }
 
 export interface UseChat {
@@ -22,11 +25,10 @@ export interface UseChat {
   reset: () => void
 }
 
-export function useChat({ settings, activeCase, kbChapters }: UseChatArgs): UseChat {
+export function useChat({ settings, activeCase, kbChapters, localGenerate, localReady }: UseChatArgs): UseChat {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  // Hold the live history so retrieval + API see the latest turns.
   const historyRef = useRef<ChatMessage[]>([])
 
   const reset = useCallback(() => {
@@ -49,57 +51,56 @@ export function useChat({ settings, activeCase, kbChapters }: UseChatArgs): UseC
       setLoading(true)
 
       try {
-        // --- retrieval: case topic + question -> top chapters ---
-        const query = `${activeCase.titulo} ${activeCase.tema} ${q}`
-        const ranked = rankChapters(query, kbChapters, activeCase.fuente)
+        // --- retrieval: question drives relevance, case nudges it ---
+        const caseText = `${activeCase.titulo} ${activeCase.tema}`
+        const ranked = rankChapters(q, caseText, kbChapters, activeCase.fuente)
         const chosen = selectContextChapters(ranked)
-        const chunks = await Promise.all(
+        const topScore = ranked.length ? ranked[0].score : 0
+        const chunks: RetrievedChunk[] = await Promise.all(
           chosen.map(async (ch) => ({
+            chapterId: ch.id,
             title: ch.title,
             text: truncateChunk(await loadChunk(ch.file)),
           })),
         )
 
-        const contextBlock =
-          buildCaseContext(activeCase) + '\n\n' + buildKnowledgeContext(chunks)
-
-        // Send the visible history as-is, but attach the freshly retrieved case
-        // + material context to the CURRENT question only. Earlier turns keep the
-        // case alive conversationally; each new turn gets the most relevant material.
-        const apiMessages: ChatMessage[] = historyRef.current.map((m) =>
-          m.id === userMsg.id
-            ? { ...m, content: `${contextBlock}\n\n=== PREGUNTA DEL RESIDENTE ===\n${m.content}` }
-            : m,
+        const result = await routeAnswer(
+          {
+            question: q,
+            activeCase,
+            chunks,
+            topScore,
+            history: historyRef.current,
+            settings,
+          },
+          { localGenerate, localReady },
         )
 
-        const answer = await sendChat({
-          apiKey: settings.apiKey,
-          model: settings.model,
-          system: SYSTEM_PROMPT,
-          messages: apiMessages,
-        })
-
+        const ENGINE_LABEL: Record<string, string> = {
+          wiki: 'Wiki (offline)',
+          local: 'Local LLM',
+          api: 'Claude API',
+        }
         const assistantMsg: ChatMessage = {
           id: placeholder.id,
           role: 'assistant',
-          content: answer,
-          sources: chosen.map((c) => c.id),
+          content: result.text,
+          sources: result.sources,
+          note: result.note || `Engine: ${ENGINE_LABEL[result.engine]}`,
         }
         historyRef.current = [...historyRef.current, assistantMsg]
         setMessages([...historyRef.current])
-        return answer
+        return result.text
       } catch (e) {
-        const msg =
-          e instanceof AnthropicError ? e.message : 'Error inesperado al generar la respuesta.'
+        const msg = e instanceof AnthropicError ? e.message : 'Unexpected error while generating the answer.'
         setError(msg)
-        // Drop the placeholder; keep the user's question in history.
         setMessages([...historyRef.current])
         return null
       } finally {
         setLoading(false)
       }
     },
-    [settings, activeCase, kbChapters],
+    [settings, activeCase, kbChapters, localGenerate, localReady],
   )
 
   return { messages, loading, error, ask, reset }

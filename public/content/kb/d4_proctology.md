@@ -1,8 +1,8 @@
 # Proctology — Haemorrhoids, Fissures, Fistulae & Pilonidal
 
-*Bloque D · Benign Digestive Surgery · PGY1-2*
+*Block D · Benign Digestive Surgery · PGY1-2*
 
-*Guías: ASCRS 2023; ESCP 2021*
+*Guidelines: ASCRS 2023; ESCP 2021*
 
 
 ## Anorectal Anatomy

@@ -1,8 +1,8 @@
 # Endocrine Surgery — General Surgery — Thyroid, Parathyroid & Adrenal
 
-*Bloque B · General Surgery · PGY2-3*
+*Block B · General Surgery · PGY2-3*
 
-*Guías: ATA 2015 Thyroid Nodule Guidelines · AAES 2016 · ETA 2023 · Endocrine Society Guidelines 2021*
+*Guidelines: ATA 2015 Thyroid Nodule Guidelines · AAES 2016 · ETA 2023 · Endocrine Society Guidelines 2021*
 
 
 ## Thyroid Nodule and Cancer

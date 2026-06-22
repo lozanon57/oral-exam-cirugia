@@ -21,7 +21,7 @@ export interface UseSpeechRecognition {
 
 export function useSpeechRecognition(
   onResult: (finalText: string) => void,
-  lang = 'es-ES',
+  lang = 'en-US',
 ): UseSpeechRecognition {
   const Ctor = getRecognitionCtor()
   const supported = !!Ctor
@@ -57,9 +57,9 @@ export function useSpeechRecognition(
     }
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-      if (event.error === 'no-speech') setError('No se detectó voz. Inténtalo de nuevo.')
-      else if (event.error === 'not-allowed') setError('Permiso de micrófono denegado.')
-      else if (event.error !== 'aborted') setError(`Error de reconocimiento: ${event.error}`)
+      if (event.error === 'no-speech') setError('No speech detected. Try again.')
+      else if (event.error === 'not-allowed') setError('Microphone permission denied.')
+      else if (event.error !== 'aborted') setError(`Recognition error: ${event.error}`)
     }
 
     recognition.onend = () => {

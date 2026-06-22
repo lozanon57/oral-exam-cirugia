@@ -1,17 +1,21 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { AppSettings, ClinicalCase, KbChapter } from './lib/types'
-import { DEFAULT_MODEL, sendChat, AnthropicError } from './lib/anthropicClient'
+import { DEFAULT_MODEL, browserChat, AnthropicError } from './lib/anthropicClient'
+import { DEFAULT_LOCAL_MODEL } from './lib/engines/webllmEngine'
 import { loadCases, loadKbIndex, loadChunk } from './data/loadContent'
 import { useChat } from './hooks/useChat'
 import { useSpeechRecognition } from './hooks/useSpeechRecognition'
 import { useSpeechSynthesis } from './hooks/useSpeechSynthesis'
+import { useWebLLM } from './hooks/useWebLLM'
 import { Chat } from './components/Chat'
 import { CaseCard } from './components/CaseCard'
 import { Settings } from './components/Settings'
 
-const SETTINGS_KEY = 'oral-exam-settings-v1'
+const SETTINGS_KEY = 'oral-exam-settings-v2'
 
 const DEFAULT_SETTINGS: AppSettings = {
+  engine: 'auto',
+  localModel: DEFAULT_LOCAL_MODEL,
   apiKey: '',
   model: DEFAULT_MODEL,
   ttsEnabled: false,
@@ -40,34 +44,37 @@ export default function App() {
   const [generating, setGenerating] = useState(false)
 
   const tts = useSpeechSynthesis()
+  const webllm = useWebLLM()
 
-  // Persist settings.
   useEffect(() => {
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings))
   }, [settings])
 
-  // Load content on mount.
   useEffect(() => {
     Promise.all([loadCases(), loadKbIndex()])
       .then(([c, kb]) => {
         setCases(c.casos)
         setKbChapters(kb.chapters)
-        // Start on a random case.
         if (c.casos.length) setCaseIdx(Math.floor(Math.random() * c.casos.length))
       })
-      .catch((e) => setLoadError(e?.message || 'No se pudo cargar el contenido.'))
+      .catch((e) => setLoadError(e?.message || 'Could not load content.'))
   }, [])
 
   const activeCase = cases[caseIdx] ?? null
 
-  const chat = useChat({ settings, activeCase, kbChapters })
+  const chat = useChat({
+    settings,
+    activeCase,
+    kbChapters,
+    localGenerate: webllm.generate,
+    localReady: webllm.status === 'ready',
+  })
 
   const speak = useCallback(
     (text: string) => tts.speak(text, settings.voiceURI || undefined, settings.rate),
     [tts, settings.voiceURI, settings.rate],
   )
 
-  // Ask + optionally read the answer aloud.
   const handleAsk = useCallback(
     async (question: string) => {
       const answer = await chat.ask(question)
@@ -84,43 +91,50 @@ export default function App() {
     setCaseIdx((i) => (cases.length ? (i + 1) % cases.length : 0))
   }, [cases.length, chat, tts])
 
-  // Generate a brand-new case from the knowledge base via Claude.
+  // Generate a brand-new case from the knowledge base using a generative engine
+  // (local LLM if loaded, otherwise the API if a key is set).
   const generateCase = useCallback(async () => {
-    if (!settings.apiKey) {
+    if (!kbChapters.length) return
+    const canLocal = webllm.status === 'ready' && webllm.generate
+    const canApi = !!settings.apiKey.trim()
+    if (!canLocal && !canApi) {
+      setLoadError('To generate a new case, load the local LLM or add an API key in Settings.')
       setShowSettings(true)
       return
     }
-    if (!kbChapters.length) return
     setGenerating(true)
+    setLoadError(null)
     try {
       const chapter = kbChapters[Math.floor(Math.random() * kbChapters.length)]
       const material = (await loadChunk(chapter.file)).slice(0, 8000)
-      const raw = await sendChat({
-        apiKey: settings.apiKey,
-        model: settings.model,
-        system:
-          'Generas casos clínicos de examen oral de Cirugía General en español, basados SOLO en el material dado. '
-          + 'Devuelve ÚNICAMENTE un objeto JSON válido, sin texto adicional ni markdown.',
-        messages: [
-          {
-            id: 'gen',
-            role: 'user',
-            content:
-              `Material (tema "${chapter.title}"):\n${material}\n\n`
-              + 'Crea un caso clínico inédito y realista de examen oral basado en este material. '
-              + 'Formato JSON exacto: {"titulo": string, "tema": string, "presentacion": string (motivo de consulta, antecedentes, exploración, constantes y pruebas iniciales, estilo oral), "puntosClave": string[] (4 elementos)}',
-          },
-        ],
-        maxTokens: 900,
-      })
+      const sys =
+        'You generate realistic General Surgery oral-board clinical cases in English, based ONLY on the given material. '
+        + 'Return ONLY a valid JSON object, no extra text or markdown.'
+      const userPrompt =
+        `Material (topic "${chapter.title}"):\n${material}\n\n`
+        + 'Create a novel, realistic oral-exam clinical case based on this material. '
+        + 'Exact JSON format: {"title": string, "topic": string, "presentation": string (chief complaint, history, exam, vitals and initial tests, viva style), "keyPoints": string[] (4 items)}'
+
+      let raw: string
+      if (canLocal) {
+        raw = await webllm.generate!(sys, [{ role: 'user', content: userPrompt }])
+      } else {
+        raw = await browserChat({
+          apiKey: settings.apiKey,
+          model: settings.model,
+          system: sys,
+          messages: [{ id: 'gen', role: 'user', content: userPrompt }],
+          maxTokens: 900,
+        })
+      }
       const jsonText = raw.replace(/```json|```/g, '').trim()
       const parsed = JSON.parse(jsonText)
       const newCase: ClinicalCase = {
         id: `gen-${Date.now()}`,
-        titulo: parsed.titulo || chapter.title,
-        tema: parsed.tema || chapter.block_name,
-        presentacion: parsed.presentacion || '',
-        puntosClave: Array.isArray(parsed.puntosClave) ? parsed.puntosClave : [],
+        titulo: parsed.title || chapter.title,
+        tema: parsed.topic || chapter.block_name,
+        presentacion: parsed.presentation || '',
+        puntosClave: Array.isArray(parsed.keyPoints) ? parsed.keyPoints : [],
         fuente: chapter.id,
       }
       tts.cancel()
@@ -131,37 +145,44 @@ export default function App() {
         return next
       })
     } catch (e) {
-      const msg = e instanceof AnthropicError ? e.message : 'No se pudo generar el caso (respuesta no válida).'
+      const msg = e instanceof AnthropicError ? e.message : 'Could not generate the case (invalid response).'
       setLoadError(msg)
     } finally {
       setGenerating(false)
     }
-  }, [settings, kbChapters, chat, tts])
+  }, [settings, kbChapters, chat, tts, webllm])
 
-  const needsKey = !settings.apiKey
   const hasContent = cases.length > 0 && kbChapters.length > 0
 
   const headerSubtitle = useMemo(() => {
-    if (!stt.supported) return 'Voz no soportada en este navegador · usa el modo texto (recomendado: Chrome)'
-    return 'Entrenamiento de examen oral · pulsa el micrófono y pregunta'
+    if (!stt.supported) return 'Voice not supported here · use text mode (Chrome recommended)'
+    return 'Oral-exam training · tap the mic and ask'
   }, [stt.supported])
+
+  const engineBadge = useMemo(() => {
+    const map: Record<AppSettings['engine'], string> = {
+      auto: webllm.status === 'ready' ? 'Auto · Local LLM' : settings.apiKey ? 'Auto · API' : 'Auto · Wiki',
+      wiki: 'Wiki (offline)',
+      local: webllm.status === 'ready' ? 'Local LLM' : 'Local (not loaded)',
+      api: settings.apiKey ? 'Claude API' : 'API (no key)',
+    }
+    return map[settings.engine]
+  }, [settings.engine, settings.apiKey, webllm.status])
 
   return (
     <div className="mx-auto flex h-[100dvh] max-w-2xl flex-col px-3 pb-3 pt-[env(safe-area-inset-top)]">
-      {/* Header */}
       <header className="flex items-center justify-between py-3">
         <div>
-          <h1 className="text-base font-bold leading-tight sm:text-lg">
-            Examen Oral · Cirugía General
-          </h1>
+          <h1 className="text-base font-bold leading-tight sm:text-lg">Oral Exam · General Surgery</h1>
           <p className="text-[11px] text-slate-500 sm:text-xs">{headerSubtitle}</p>
         </div>
         <button
           onClick={() => setShowSettings(true)}
-          className="rounded-lg border border-exam-border bg-exam-panel px-3 py-2 text-sm hover:bg-exam-panel2"
-          aria-label="Ajustes"
+          className="flex items-center gap-2 rounded-lg border border-exam-border bg-exam-panel px-3 py-2 text-sm hover:bg-exam-panel2"
+          aria-label="Settings"
         >
-          ⚙︎
+          <span className="hidden text-[11px] text-slate-400 sm:inline">{engineBadge}</span>
+          <span>⚙︎</span>
         </button>
       </header>
 
@@ -171,16 +192,6 @@ export default function App() {
         </div>
       )}
 
-      {needsKey && (
-        <button
-          onClick={() => setShowSettings(true)}
-          className="mb-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-left text-xs text-amber-300"
-        >
-          ⚠︎ Añade tu API key de Anthropic en Ajustes para empezar a recibir respuestas.
-        </button>
-      )}
-
-      {/* Case card */}
       <div className="mb-3">
         <CaseCard
           activeCase={activeCase}
@@ -192,7 +203,6 @@ export default function App() {
         />
       </div>
 
-      {/* Chat */}
       <div className="min-h-0 flex-1">
         {hasContent ? (
           <Chat
@@ -207,10 +217,9 @@ export default function App() {
             onMicStop={stt.stop}
             onSubmitText={handleAsk}
             onSpeak={tts.supported ? speak : undefined}
-            disabled={needsKey}
           />
         ) : (
-          !loadError && <div className="py-10 text-center text-sm text-slate-500">Cargando contenido…</div>
+          !loadError && <div className="py-10 text-center text-sm text-slate-500">Loading content…</div>
         )}
       </div>
 
@@ -218,6 +227,7 @@ export default function App() {
         <Settings
           settings={settings}
           voices={tts.voices}
+          webllm={webllm}
           onChange={setSettings}
           onClose={() => setShowSettings(false)}
         />

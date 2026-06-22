@@ -1,8 +1,8 @@
 # Inflammatory Bowel Disease — General Surgery — Crohn's Disease & Ulcerative Colitis
 
-*Bloque D · Benign Digestive Surgery · PGY2-3*
+*Block D · Benign Digestive Surgery · PGY2-3*
 
-*Guías: ECCO Surgery in Crohn's Disease 3rd ed. 2023 · ECCO-ESCP UC Surgery Update 2023 · ASCRS IBD Guidelines 2021*
+*Guidelines: ECCO Surgery in Crohn's Disease 3rd ed. 2023 · ECCO-ESCP UC Surgery Update 2023 · ASCRS IBD Guidelines 2021*
 
 
 ## IBD — Pathophysiology & Classification
@@ -117,7 +117,7 @@ Enteroenteric fistula | Resect diseased segment; repair healthy recipient bowel 
 Rectal CD — severe, refractory (proctitis) | Proctectomy ± colectomy | IPAA contraindicated in CD — end ileostomy; Hartmann's pouch or proctocolectomy
 Cancer in CD | Resection per oncological principles | Colorectal cancer in CD managed as for sporadic CRC
 
-**Ensayo de referencia — LIR!C Trial:**
+**Landmark trial — LIR!C Trial:**
 
 > **Short Bowel Syndrome Risk in Crohn's Disease** — Short bowel syndrome (SBS) occurs when remaining small bowel length falls below 100–150 cm (with colon) or 50 cm (with end-jejunostomy). Crohn's patients are at risk from: repeated small bowel resections over years. Each resection should preserve maximum bowel — this is why strictureplasty is preferred over resection for B2 disease when feasible. Cumulative lifetime resection length should be monitored. Parenteral nutrition may be required for end-stage SBS.
 
@@ -135,7 +135,7 @@ Transsphincteric | Crosses external sphincter at variable height; exits ischioan
 Suprasphincteric | Over puborectalis, through levators, to ischioanal fossa | 3–5% | Seton; complex repair; sphincter-preserving approach
 Extrasphincteric | Above levators, through ischioanal fossa to skin; bypasses entire sphincter | Rare (<1%) | Faecal diversion; staged repair; high morbidity
 
-**Ensayo de referencia — ACCENT II Trial:**
+**Landmark trial — ACCENT II Trial:**
 
 *Complex Perianal Fistula Management in Crohn's — Surgical Options*
 Procedure | Mechanism | Success Rate | Best Indication

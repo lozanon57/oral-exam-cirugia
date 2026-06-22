@@ -1,8 +1,8 @@
 # Surgical Databases & Registries — Academic Surgery — ACS-NSQIP, National Audits, EHR, Big Data & Real-World Evidence
 
-*Bloque C · Academic Surgery · PGY2-4*
+*Block C · Academic Surgery · PGY2-4*
 
-*Guías: ACS-NSQIP 2023 · NHS Digital 2023 · RECORD Statement 2015 · GDPR 2018 · ICH E8(R1) 2021*
+*Guidelines: ACS-NSQIP 2023 · NHS Digital 2023 · RECORD Statement 2015 · GDPR 2018 · ICH E8(R1) 2021*
 
 
 ## Surgical Registries and Quality Databases

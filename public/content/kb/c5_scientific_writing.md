@@ -1,8 +1,8 @@
 # Scientific Writing — Academic Surgery — From Manuscript to Publication
 
-*Bloque C · Academic Surgery · PGY1+*
+*Block C · Academic Surgery · PGY1+*
 
-*Guías: EQUATOR Network 2023 · ICMJE 2024 · CONSORT 2010 · SAMPL Guidelines 2015*
+*Guidelines: EQUATOR Network 2023 · ICMJE 2024 · CONSORT 2010 · SAMPL Guidelines 2015*
 
 
 ## The IMRaD Structure

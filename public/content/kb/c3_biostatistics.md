@@ -1,8 +1,8 @@
 # Biostatistics for Surgeons — Academic Surgery — Hypothesis Testing, Regression, Survival Analysis & Bayesian Methods
 
-*Bloque C · Academic Surgery · PGY2-4*
+*Block C · Academic Surgery · PGY2-4*
 
-*Guías: CONSORT 2010 Statistical Analysis · STROBE Checklist 2007 · TRIPOD 2015 · GRADE 2011*
+*Guidelines: CONSORT 2010 Statistical Analysis · STROBE Checklist 2007 · TRIPOD 2015 · GRADE 2011*
 
 
 ## Statistical Tests — Choosing Correctly

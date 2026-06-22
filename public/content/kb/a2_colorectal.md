@@ -1,13 +1,13 @@
 # Colorectal Cancer — Surgical Oncology — Operative Principles & Evidence
 
-*Bloque A · Surgical Oncology · PGY2-3*
+*Block A · Surgical Oncology · PGY2-3*
 
-*Guías: NCCN v2.2026 · ESMO Living Guideline 2024*
+*Guidelines: NCCN v2.2026 · ESMO Living Guideline 2024*
 
 
 ## Surgical Anatomy
 
-**Caso:** A 62-year-old man is referred with a 2-week history of rectal bleeding and change in bowel habit. Colonoscopy identifies a 3 cm mass at 8 cm from the anal verge. Biopsy confirms adenocarcinoma. He has no significant comorbidities (ECOG 0). His wife is present and very anxious about whether he will 'need a bag'.
+**Case:** A 62-year-old man is referred with a 2-week history of rectal bleeding and change in bowel habit. Colonoscopy identifies a 3 cm mass at 8 cm from the anal verge. Biopsy confirms adenocarcinoma. He has no significant comorbidities (ECOG 0). His wife is present and very anxious about whether he will 'need a bag'.
 
 The large bowel is invested by the **mesocolon**, a bilobed peritoneal reflection containing the vascular pedicles, lymphatics, and autonomic nerves. Understanding the embryological fusion planes is the foundation of oncological colonic surgery. The mesocolon is separated from the retroperitoneum by an avascular embryological fusion plane — the correct dissection plane in complete mesocolic excision (CME), analogous to the holy plane in TME.
 
@@ -79,7 +79,7 @@ Surgical resection of colon cancer requires complete removal of the primary tumo
 
 > **Board Pearl — Complete Mesocolic Excision (CME)** — CME, described by Hohenberger (2009), is the colonic equivalent of TME. It requires: (1) dissection in the correct embryological plane between the mesocolon and parietal retroperitoneum; (2) central vascular ligation at the arterial root; (3) removal of an intact mesocolon envelope. CME is associated with a higher lymph node yield (mean 32 vs 18 nodes) and improved 5-year cancer-specific survival (89.1% vs 81.9% in the Erlangen cohort). CME is now standard at high-volume centres.
 
-**Caso:** A 61-year-old woman undergoes laparoscopic right hemicolectomy for a pT3 N1b hepatic flexure adenocarcinoma. The operation is straightforward with high ligation of the ileocolic artery. Specimen pathology: 21 lymph nodes, 3 positive. Day 4 post-operatively she develops fever (38.9°C), tachycardia, and abdominal pain. CRP 280 mg/L. CT shows a 4cm pericolic fluid collection at the anastomosis with pneumatosis.
+**Case:** A 61-year-old woman undergoes laparoscopic right hemicolectomy for a pT3 N1b hepatic flexure adenocarcinoma. The operation is straightforward with high ligation of the ileocolic artery. Specimen pathology: 21 lymph nodes, 3 positive. Day 4 post-operatively she develops fever (38.9°C), tachycardia, and abdominal pain. CRP 280 mg/L. CT shows a 4cm pericolic fluid collection at the anastomosis with pneumatosis.
 
 
 ## Rectal Cancer Surgery
@@ -103,7 +103,7 @@ Low rectum (1–5cm), sphincter-preserving | LAR + complete TME ± intersphincte
 Low rectum, sphincter-involved | ELAPE / APR | End colostomy permanent | Remove levators en-bloc; ELAPE reduces CRM+
 T1 N0 favourable histology, <3cm | Transanal local excision (TEM/TAMIS) | None | Full-thickness excision; pathology review mandatory
 
-**Puntos clave:**
+**Key points:**
 - TME (total mesorectal excision) is the oncological gold standard for rectal cancer — sharp dissection in the embryological plane between visceral and parietal pelvic fascia.
 - The mesorectal fascia (MRF) is the critical margin in rectal cancer: CRM positive = tumour ≤1 mm from the inked MRF on pathology (UK definition).
 - Surgical procedures: LAR (high/mid rectum, >5 cm from AV); ULAR + colo-anal anastomosis (low rectum, 3–5 cm); APR (tumour invading sphincter or <1–2 cm from AV); ELAPE for fixed/low T4 disease.
@@ -132,7 +132,7 @@ Watch-and-wait (W&W) — non-operative management after complete clinical respon
 
 > **Clinical Application — Watch-and-Wait Selection** — W&W requires extremely careful patient selection and intensive surveillance. Candidates must have: (1) confirmed cCR on MRI and endoscopy 8–12 weeks post-CRT; (2) willingness to comply with 3-monthly surveillance for 2 years; (3) anatomy amenable to endoscopic and MRI assessment; (4) histological confirmation of absence of residual disease. Approximately 25% of cCR patients experience local regrowth within 2 years — 80–90% of these are still salvageable with surgery. W&W should only be offered at experienced centres with structured protocols.
 
-**Puntos clave:**
+**Key points:**
 - Long-course CRT (50.4 Gy + capecitabine/5-FU) achieves pCR in 15–20% and is standard for cT3 CRM-threatened or cT4/N+ rectal cancer (Sauer, NEJM 2004).
 - Short-course RT (25 Gy in 5 fractions) achieves equivalent local control to long-course CRT (Swedish Rectal Cancer Trial, MRC CR07) — reserved for good-prognosis cT3 tumours not requiring tumour shrinkage.
 - RAPIDO trial (Bahadoer, Lancet Oncology 2021): short-course RT → FOLFIRINOX → surgery (TNT) reduced distant metastases by 7% vs standard CRT; no OS benefit.
@@ -210,7 +210,7 @@ Familial adenomatous polyposis (FAP) is caused by APC germline mutations and is 
 
 > **Board Pearl — Universal Tumour Testing** — Universal MMR/MSI testing of all colorectal cancers at diagnosis is now recommended by NCCN, ESMO, and ASCO — not only when Lynch syndrome is clinically suspected. MMR testing (IHC for MLH1, MSH2, MSH6, PMS2) costs <$200 and identifies: (1) Lynch syndrome carriers requiring family testing; (2) sporadic MSI-H tumours with poor 5-FU response; (3) MSI-H tumours eligible for pembrolizumab in metastatic disease. IHC loss of MLH1 should trigger reflexive BRAF V600E and MLH1 promoter methylation testing to distinguish Lynch from sporadic MSI-H.
 
-**Puntos clave:**
+**Key points:**
 - Lynch syndrome: most common hereditary CRC syndrome (3% of all CRC); autosomal dominant mutation in MLH1, MSH2, MSH6, or PMS2 mismatch repair genes.
 - Revised Amsterdam II criteria: 3-2-1 rule — 3 affected relatives, 2 generations, 1 <50 years old. But 30–40% of Lynch cases fail Amsterdam — use Bethesda/revised Bethesda for broader screening.
 - Universal tumour MMR/MSI testing is now mandated for ALL newly diagnosed colorectal cancers (NCCN, ESMO 2023).
@@ -258,7 +258,7 @@ Bilobar disease requiring PVE | Staged hepatectomy (two-stage) | FLR inadequate;
 
 Ablative techniques — radiofrequency ablation (RFA), microwave ablation (MWA), and stereotactic body radiotherapy (SBRT) — complement surgical resection in CRLM management. Ablation is appropriate for: (1) CRLM not amenable to resection due to proximity to major vessels or bile ducts; (2) patients with inadequate FLR who cannot tolerate further resection; (3) patients with recurrent disease after prior hepatectomy in whom further resection is technically impossible. Ablation should not routinely replace resection when resection is technically feasible — long-term local recurrence rates after ablation (20–30%) exceed those after resection (5–10%).
 
-**Ensayo de referencia — EORTC 40983 Trial (EPOC):**
+**Landmark trial — EORTC 40983 Trial (EPOC):**
 
 > **Common Pitfall — Chemotherapy-Associated Liver Injury** — Prolonged pre-operative chemotherapy (>6 cycles FOLFOX) causes chemotherapy-associated steatohepatitis (CASH) — also called oxaliplatin-associated sinusoidal injury (blue liver). This increases post-hepatectomy morbidity and mortality. FOLFIRI + bevacizumab is associated with steatosis. Limit pre-operative chemotherapy to 4–6 cycles for resectable disease. Always perform ICG-R15 or FLR volumetry before major hepatectomy in patients who have received significant pre-operative chemotherapy.
 

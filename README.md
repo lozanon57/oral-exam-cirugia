@@ -1,43 +1,54 @@
-# Examen Oral · Cirugía General 🎤
+# Oral Exam · General Surgery 🎤
 
-Entrenador por **voz** para exámenes orales de Cirugía General (estilo MIR / oral de residencia).
-Presenta un caso clínico, tú preguntas hablando, y un "adjunto examinador" (Claude) responde de
-forma **concisa y basada en el material del curso HGUGM** — no en conocimiento genérico.
+A **voice** trainer for the General Surgery oral board exam (viva). It shows a clinical case, you
+ask questions out loud, and an "examiner" answers **concisely and grounded ONLY in the HGUGM course
+knowledge base** — never generic knowledge. **English** in and out.
 
-> ⚕️ Herramienta **académica de estudio**. No es consejo médico para pacientes reales.
+> ⚕️ **Academic study tool.** Not medical advice for real patients.
 
-App en producción: **https://lozanon57.github.io/oral-exam-cirugia/**
-
----
-
-## Cómo funciona
-
-1. La app muestra un **caso clínico** (tarjeta superior, plegable).
-2. Pulsas el **micrófono**, formulas tu pregunta en voz alta → se transcribe (Web Speech API, `es-ES`).
-3. Al terminar (silencio), la pregunta se envía y el examinador responde, basándose en:
-   - el **caso activo**,
-   - los **fragmentos relevantes** de la base de conocimiento (recuperación por palabras clave),
-   - el **historial** de la conversación del caso.
-4. Puedes encadenar varias preguntas sobre el mismo caso.
-5. **Cambiar caso clínico** carga otro caso y reinicia la conversación.
-6. **Generar caso nuevo** crea un caso inédito a partir del material (usa la API).
-7. La respuesta puede **leerse en voz alta** (TTS), activable/desactivable en Ajustes.
-
-La **regla de oro**: si algo no está en el material, el examinador lo advierte en vez de inventar.
+Live app: **https://lozanon57.github.io/oral-exam-cirugia/**
 
 ---
 
-## API key (Anthropic)
+## No API key needed — three answer engines (hybrid)
 
-La app llama a Claude **directamente desde el navegador** con **tu propia API key**, que se guarda
-**solo en tu navegador** (`localStorage`) — nunca se sube al repo ni a ningún servidor.
+The answer is produced **inside your browser**. Pick the engine in **⚙︎ Settings → Answer engine**:
 
-1. Consigue una key en **https://console.anthropic.com** → *API Keys*.
-2. Abre la app → **⚙︎ Ajustes** → pega la key en *API key de Anthropic* → **Guardar**.
-3. (Opcional) Elige modelo: **Sonnet 4.6** (recomendado), Haiku 4.5 (más rápido/barato) u Opus 4.8.
+| Engine | Key? | Device | What it does |
+|---|---|---|---|
+| **Wiki (offline)** | No | Everything, incl. mobile | Extractive: finds and surfaces the most relevant passages from the material. Instant, fully offline. Default fallback. |
+| **Local LLM** | No | Desktop Chrome/Edge (WebGPU) | Runs a small LLM (Llama 3.2 / Qwen2.5) in the browser via WebLLM for conversational answers. Downloads the model once (~1–2.4 GB, cached). |
+| **Claude API** | Yes | Everything | Best quality. Uses your Anthropic key (stored only in your browser). |
+| **Auto** (default) | — | — | Uses the richest available: Local LLM → API (if a key is set) → Wiki, and **escalates to the API** when there is no relevant material and a key exists. |
 
-> Nota técnica: usa la cabecera `anthropic-dangerous-direct-browser-access`. Es cómodo para uso
-> personal. Si en el futuro quieres **ocultar la key**, ver *Backend serverless* abajo.
+Out of the box (no setup) it answers in **Wiki mode** — no key, no download, works on your phone.
+
+---
+
+## How it works
+
+1. The app shows a **clinical case** (collapsible card on top).
+2. Tap the **mic**, ask out loud → transcribed (Web Speech API, `en-US`).
+3. On silence, the question is sent and the examiner answers, grounded in:
+   - the **active case**,
+   - the **relevant excerpts** from the knowledge base (keyword retrieval),
+   - the **conversation history** of the case.
+4. Chain several questions on the same case.
+5. **Change clinical case** loads another case and resets the conversation.
+6. **Generate new case** creates a fresh case from the material (uses the Local LLM if loaded, else the API).
+7. Answers can be **read aloud** (TTS), toggleable in Settings.
+
+**Golden rule:** if something is not in the material, the examiner says so instead of inventing it.
+
+### Optional: enable the Local LLM (no key)
+
+Settings → *Local LLM* → choose a model → **Download & load**. Needs WebGPU (Chrome/Edge on desktop).
+First load downloads the model (cached afterwards); use Wi-Fi.
+
+### Optional: Claude API (best quality)
+
+Get a key at **https://console.anthropic.com** → Settings → paste it under *Anthropic API key* →
+choose model (Sonnet 4.6 recommended). Stored only in your browser (`localStorage`).
 
 ---
 

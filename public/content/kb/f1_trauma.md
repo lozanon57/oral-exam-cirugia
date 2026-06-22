@@ -1,8 +1,8 @@
 # Abdominal & Thoracic Trauma
 
-*Bloque F · Trauma, Infections & Thoracic · PGY1-3*
+*Block F · Trauma, Infections & Thoracic · PGY1-3*
 
-*Guías: ATLS 10th ed. 2018; WSES 2023*
+*Guidelines: ATLS 10th ed. 2018; WSES 2023*
 
 
 ## ATLS Primary Survey & Trauma Resuscitation

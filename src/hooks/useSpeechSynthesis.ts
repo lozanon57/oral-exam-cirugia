@@ -39,12 +39,12 @@ export function useSpeechSynthesis(): UseSpeechSynthesis {
       if (!supported || !text.trim()) return
       window.speechSynthesis.cancel()
       const utt = new SpeechSynthesisUtterance(clean(text))
-      utt.lang = 'es-ES'
+      utt.lang = 'en-US'
       utt.rate = rate
       const all = window.speechSynthesis.getVoices()
       const chosen =
         (voiceURI && all.find((v) => v.voiceURI === voiceURI)) ||
-        all.find((v) => v.lang?.toLowerCase().startsWith('es')) ||
+        all.find((v) => v.lang?.toLowerCase().startsWith('en')) ||
         null
       if (chosen) utt.voice = chosen
       utt.onstart = () => setSpeaking(true)

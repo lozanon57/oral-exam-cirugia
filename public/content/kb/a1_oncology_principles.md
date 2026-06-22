@@ -1,13 +1,13 @@
 # Principles of Surgical Oncology — Surgical Oncology — Biological Basis, Margins, and Multidisciplinary Care
 
-*Bloque A · Surgical Oncology · PGY1-2*
+*Block A · Surgical Oncology · PGY1-2*
 
-*Guías: NCCN Principles of Surgical Oncology 2025 · UICC Manual of Clinical Oncology 9th ed.*
+*Guidelines: NCCN Principles of Surgical Oncology 2025 · UICC Manual of Clinical Oncology 9th ed.*
 
 
 ## Biological Basis of Surgical Oncology
 
-**Caso:** A 58-year-old man is referred to your surgical oncology clinic following diagnosis of a 4 cm sigmoid colon adenocarcinoma. Colonoscopy confirms the lesion at 30 cm from the anal verge. CT chest/abdomen/pelvis shows no distant metastases but identifies two suspicious periaortic lymph nodes. MSI/MMR testing is pending. He is otherwise well, ECOG 0.
+**Case:** A 58-year-old man is referred to your surgical oncology clinic following diagnosis of a 4 cm sigmoid colon adenocarcinoma. Colonoscopy confirms the lesion at 30 cm from the anal verge. CT chest/abdomen/pelvis shows no distant metastases but identifies two suspicious periaortic lymph nodes. MSI/MMR testing is pending. He is otherwise well, ECOG 0.
 
 Surgical oncology is grounded in an understanding of tumour biology that extends far beyond anatomy. The decision to operate — and how to operate — is shaped by the biological behaviour of the tumour: its growth kinetics, invasive capacity, metastatic potential, and response to systemic agents. Modern surgical oncology has moved decisively away from the principle of 'maximum tolerable surgery' toward 'minimum effective surgery', guided by molecular profiling, multimodal treatment, and high-quality surgical technique.
 
@@ -35,7 +35,7 @@ CDH1 germline | Gastric (diffuse type) | Prophylactic total gastrectomy recommen
 
 > **Common Pitfall — Biomarker Timing** — Biomarker testing must occur BEFORE committing to a treatment plan. Discovering MSI-H status after a rectal cancer patient has already completed CRT forfeits the opportunity for neoadjuvant checkpoint inhibition with potential complete response. Test all colorectal cancers for MSI/MMR at diagnosis, not as an afterthought.
 
-**Puntos clave:**
+**Key points:**
 - Hallmarks of cancer (Hanahan & Weinberg): 10 capabilities including sustained proliferative signalling, immune evasion, angiogenesis, and invasion — each a potential surgical/systemic target.
 - EMT (epithelial-mesenchymal transition) drives local invasion and enables haematogenous spread; loss of E-cadherin is a key molecular marker.
 - Metastatic cascade is highly inefficient (<0.01% CTCs form macrometastases); the pre-metastatic niche concept explains organ-specific tropism.
@@ -75,7 +75,7 @@ Gastric cancer | ≥5cm proximal (diffuse), ≥3cm (intestinal) | JGCA 5th ed. 2
 
 > **NCCN Surgical Oncology Principles 2024** — R0 resection is the primary goal of curative-intent surgery for all solid tumours. When R0 is not achievable with acceptable morbidity, the case should be discussed at MDT to consider: (1) neoadjuvant therapy to downsize, (2) modified surgical approach, (3) intraoperative radiotherapy (IORT), or (4) palliative intent declaration. Debulking surgery (R2) is only indicated in specific circumstances with proven survival benefit (ovarian cancer cytoreduction, neuroendocrine liver metastases).
 
-**Puntos clave:**
+**Key points:**
 - R0 = all margins microscopically clear (no tumour at ink); R1 = microscopic tumour at margin; R2 = macroscopic residual.
 - Margin definitions differ by tumour: Breast BCS R0 = no ink on tumour (SSO/ASTRO 2014); Rectal CRM R1 = tumour ≤1 mm from inked fascia; Pancreas (UK/EU) R1 = tumour ≤1 mm from any margin.
 - A 'threatened margin' on MRI (tumour within 1 mm of a fascial boundary) identifies patients needing neoadjuvant therapy before surgery.
@@ -137,13 +137,13 @@ A complete MDT for surgical oncology includes, at minimum: the operating surgeon
 
 > **NCCN Evidence for MDT** — Studies from multiple cancer centres demonstrate that MDT review: (1) changes management in 20–32% of cases; (2) increases adherence to clinical guidelines by 20–40%; (3) is independently associated with improved disease-specific survival in colorectal, breast, lung, and upper GI cancers (Kesson, Lancet 2012: breast cancer MDT associated with 18% reduction in cancer-specific mortality). All NCCN guidelines carry a Category 2A recommendation that decisions be made within a multidisciplinary context.
 
-**Caso:** A 67-year-old man presents with a 3.5cm sigmoid mass on CT, no distant metastases. Colonoscopy and biopsy confirm moderately differentiated adenocarcinoma. CEA is 18 ng/mL. The surgeon reviews the imaging and plans laparoscopic left hemicolectomy. Before scheduling the procedure, the case is presented at the weekly MDT.
+**Case:** A 67-year-old man presents with a 3.5cm sigmoid mass on CT, no distant metastases. Colonoscopy and biopsy confirm moderately differentiated adenocarcinoma. CEA is 18 ng/mL. The surgeon reviews the imaging and plans laparoscopic left hemicolectomy. Before scheduling the procedure, the case is presented at the weekly MDT.
 
 Effective MDT function requires more than attendance — it requires high-quality imaging review, complete pathological reporting, documented treatment recommendations, and follow-up on outcomes. MDT dysfunction is associated with time pressure, incomplete imaging, absent key specialists, and failure to document decisions. Regular MDT audit using validated tools (TEAM tool, MDT-MOT) is recommended by NICE and ESMO to maintain quality standards.
 
 > **Common Pitfall — MDT Quality** — An MDT meeting is only as good as the quality of information presented. Incomplete staging imaging, missing pathology results, and absent subspecialty expertise render MDT decisions unreliable. Never present a case to MDT without: complete cross-sectional imaging, histological confirmation, performance status documented, and all relevant biomarker results. Incomplete MDT presentation is worse than no MDT — it creates false confidence in an incomplete decision.
 
-**Puntos clave:**
+**Key points:**
 - MDT review changes management in 20–32% of cancer cases; greatest impact before treatment initiation.
 - Mandatory members: surgeon, medical oncologist, radiation oncologist, diagnostic radiologist, pathologist, clinical nurse specialist.
 - MDT is especially valuable for equivocal imaging findings, uncommon histologies, complex staging, and patients with comorbidities limiting standard therapy.
@@ -155,11 +155,11 @@ Effective MDT function requires more than attendance — it requires high-qualit
 
 The adoption of minimally invasive surgery (MIS) in oncology — laparoscopic and robotic approaches — has been one of the most consequential technical developments of the past three decades. Initial scepticism about oncological equivalence has been systematically addressed by multiple high-quality randomised controlled trials demonstrating non-inferiority for cancer-specific outcomes in selected tumour types and settings. The established benefits of MIS — reduced blood loss, shorter hospital stay, faster recovery, and reduced wound complications — are now achievable without oncological compromise.
 
-**Ensayo de referencia — CLASSIC Trial:**
+**Landmark trial — CLASSIC Trial:**
 
-**Ensayo de referencia — COLOR II Trial:**
+**Landmark trial — COLOR II Trial:**
 
-**Ensayo de referencia — COREAN Trial:**
+**Landmark trial — COREAN Trial:**
 
 *MIS vs Open Surgery — Evidence Summary by Tumour Type*
 Tumour | Trial | Oncological Outcome | Recommendation

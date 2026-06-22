@@ -1,8 +1,8 @@
 # Sarcoma & Peritoneal Oncology — Surgical Oncology — Retroperitoneal Sarcoma, CRS+HIPEC, PIPAC
 
-*Bloque A · Surgical Oncology · PGY3-4*
+*Block A · Surgical Oncology · PGY3-4*
 
-*Guías: TARPSWG Retroperitoneal Sarcoma Guidelines 2023 · ESMO Soft Tissue Sarcoma 2021 · STRASS (Lancet Oncol 2020) · PRODIGE 7 (Lancet Oncol 2021) · OVHIPEC-1 (NEJM 2018) · ESMO Peritoneal Metastases 2023 · PSOGI HIPEC Consensus 2022*
+*Guidelines: TARPSWG Retroperitoneal Sarcoma Guidelines 2023 · ESMO Soft Tissue Sarcoma 2021 · STRASS (Lancet Oncol 2020) · PRODIGE 7 (Lancet Oncol 2021) · OVHIPEC-1 (NEJM 2018) · ESMO Peritoneal Metastases 2023 · PSOGI HIPEC Consensus 2022*
 
 
 ## Retroperitoneal Sarcoma

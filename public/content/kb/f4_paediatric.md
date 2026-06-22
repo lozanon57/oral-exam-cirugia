@@ -1,8 +1,8 @@
 # Paediatric Surgery for General Surgeons — Neonatal Emergencies, Common Conditions & Paediatric Oncology
 
-*Bloque F · Trauma, Infections & Thoracic · PGY2-3*
+*Block F · Trauma, Infections & Thoracic · PGY2-3*
 
-*Guías: APSA Clinical Practice Guidelines · NICE NG76 Child Maltreatment · SIOP/COG Protocols 2022 · IPEG Guidelines*
+*Guidelines: APSA Clinical Practice Guidelines · NICE NG76 Child Maltreatment · SIOP/COG Protocols 2022 · IPEG Guidelines*
 
 
 ## Neonatal Surgical Emergencies

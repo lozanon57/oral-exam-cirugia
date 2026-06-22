@@ -1,8 +1,8 @@
 # Perioperative Care, Anaesthesia & ERAS — Preoperative Assessment, Perioperative Medicine & Enhanced Recovery
 
-*Bloque G · Perioperative & Minimally Invasive · PGY1-2*
+*Block G · Perioperative & Minimally Invasive · PGY1-2*
 
-*Guías: ERAS Society Guidelines 2023–2024 (Colorectal, Liver, Pancreas, Bariatric) · NICE NG45 Perioperative Care · ESC/ESA Non-cardiac Surgery Guidelines 2022 · NICE NG89 VTE Prevention*
+*Guidelines: ERAS Society Guidelines 2023–2024 (Colorectal, Liver, Pancreas, Bariatric) · NICE NG45 Perioperative Care · ESC/ESA Non-cardiac Surgery Guidelines 2022 · NICE NG89 VTE Prevention*
 
 
 ## Preoperative Assessment
@@ -44,7 +44,7 @@ Antiplatelet management: aspirin (100 mg daily) — continue perioperatively for
 
 Anticoagulation management: warfarin — stop 5 days pre-op, check INR (<1.5 before surgery); bridging heparin (LMWH or UFH) in high-risk patients (mechanical heart valves, AF with high stroke risk — CHADS-VASc ≥3, recent DVT/PE <3 months). The BRIDGE trial changed practice for AF patients.
 
-**Ensayo de referencia — BRIDGE Trial — Anticoagulation Bridging in AF Patients:**
+**Landmark trial — BRIDGE Trial — Anticoagulation Bridging in AF Patients:**
 
 > **DOAC Perioperative Management** — Direct oral anticoagulants (DOACs — rivaroxaban, apixaban, dabigatran, edoxaban): stop 24–48 hours before low-bleed-risk surgery; 48–72 hours before high-bleed-risk surgery (or longer for dabigatran if CrCl <50 mL/min — 96h). No bridging with LMWH required for DOACs (no rebound hypercoagulability). Resume 24–48h post-op when haemostasis is secure. Check renal function before stopping dabigatran (renal clearance — prolonged action if CrCl <30).
 

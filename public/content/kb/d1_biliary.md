@@ -1,8 +1,8 @@
 # Biliary Surgery — General Surgery — Acute Cholecystitis, Choledocholithiasis & Biliary Emergencies
 
-*Bloque D · Benign Digestive Surgery · PGY1-2*
+*Block D · Benign Digestive Surgery · PGY1-2*
 
-*Guías: Tokyo Guidelines 2018 · WSES Acute Cholecystitis 2020 · SAGES-AHPBA Bile Duct Injury Management 2025 · ESGE 2019*
+*Guidelines: Tokyo Guidelines 2018 · WSES Acute Cholecystitis 2020 · SAGES-AHPBA Bile Duct Injury Management 2025 · ESGE 2019*
 
 
 ## Biliary Anatomy & Physiology
@@ -156,7 +156,7 @@ Grade III (Severe) | Organ dysfunction (cardiovascular: systolic BP <90; neurolo
 
 Gallstones are the leading cause of acute pancreatitis in the Western world (40–50%). Small stones (<5 mm) and microlithiasis carry the highest risk of transient ampullary obstruction. Pathophysiology: transient pancreatic duct obstruction → acinar cell injury → activation of pancreatic enzymes → auto-digestion → systemic inflammatory response. Severity follows the **Revised Atlanta Classification**: mild (no organ failure, no local complications), moderately severe (transient organ failure <48h or local complications), severe (persistent organ failure >48h).
 
-**Ensayo de referencia — PONCHO Trial:**
+**Landmark trial — PONCHO Trial:**
 
 *ERCP Indications in Gallstone Pancreatitis*
 Indication | Timing | Evidence

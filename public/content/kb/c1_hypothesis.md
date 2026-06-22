@@ -1,8 +1,8 @@
 # Hypothesis Generation & Research Question — Academic Surgery — From Clinical Observation to Testable Hypothesis
 
-*Bloque C · Academic Surgery · PGY1+*
+*Block C · Academic Surgery · PGY1+*
 
-*Guías: Hulley's Designing Clinical Research 4th ed. · EQUATOR Network 2023 · Declaration of Helsinki 2013 · ICH E6(R2) GCP*
+*Guidelines: Hulley's Designing Clinical Research 4th ed. · EQUATOR Network 2023 · Declaration of Helsinki 2013 · ICH E6(R2) GCP*
 
 
 ## What Makes a Good Research Question
@@ -41,7 +41,7 @@ PICO — Population, Intervention, Comparison, Outcome — is the structured tem
 
 > **Board Pearl — PICO in Surgical Research** — Surgical studies frequently use **composite outcomes** (e.g., 'major morbidity = Clavien-Dindo ≥3') as primary endpoints, combining events that may have different clinical significance. Always scrutinise composite endpoints: if the composite is driven primarily by minor components, the apparent treatment effect may not translate to clinically meaningful benefit. Decomposing composite outcomes in sensitivity analyses is good analytical practice.
 
-**Caso:** You are a PGY3 surgical resident who has noticed that patients undergoing emergency colostomy reversal (Hartmann's reversal) at your centre have a higher anastomotic leak rate when the reversal is performed within 3 months of the original operation compared to those operated after 6 months. You want to design a study to test this observation formally.
+**Case:** You are a PGY3 surgical resident who has noticed that patients undergoing emergency colostomy reversal (Hartmann's reversal) at your centre have a higher anastomotic leak rate when the reversal is performed within 3 months of the original operation compared to those operated after 6 months. You want to design a study to test this observation formally.
 
 
 ## From Clinical Observation to Hypothesis

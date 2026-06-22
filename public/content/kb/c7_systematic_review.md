@@ -1,8 +1,8 @@
 # Systematic Review & Meta-Analysis — Academic Surgery — PRISMA, Cochrane Methods, Advanced Synthesis & Living Reviews
 
-*Bloque C · Academic Surgery · PGY3-4*
+*Block C · Academic Surgery · PGY3-4*
 
-*Guías: PRISMA 2020 · Cochrane Handbook v6.3 2022 · GRADE 2013 · PROSPERO · NMA-CONSORT Extension*
+*Guidelines: PRISMA 2020 · Cochrane Handbook v6.3 2022 · GRADE 2013 · PROSPERO · NMA-CONSORT Extension*
 
 
 ## Systematic Review Methodology

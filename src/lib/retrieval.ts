@@ -22,13 +22,21 @@ export interface ScoredChapter {
   score: number
 }
 
+// Question tokens count more than case tokens: the resident's question drives
+// relevance, the case only nudges it. Weights tuned so a chapter that strongly
+// matches an off-case question can still outrank the active case's chapter.
+const QUESTION_WEIGHT = 3
+const CASE_WEIGHT = 1
+const CASE_SOURCE_BOOST = 2
+
 export function rankChapters(
-  query: string,
+  question: string,
+  caseText: string,
   chapters: KbChapter[],
   preferChapterId?: string,
 ): ScoredChapter[] {
-  const qTokens = tokenize(query)
-  const qSet = new Set(qTokens)
+  const qSet = new Set(tokenize(question))
+  const cSet = new Set(tokenize(caseText))
 
   const scored = chapters.map((chapter) => {
     const haystack = new Set([
@@ -38,9 +46,9 @@ export function rankChapters(
       ...tokenize(chapter.block_name),
     ])
     let score = 0
-    for (const t of qSet) if (haystack.has(t)) score += 1
-    // Strong boost for the chapter the active case comes from.
-    if (preferChapterId && chapter.id === preferChapterId) score += 5
+    for (const t of qSet) if (haystack.has(t)) score += QUESTION_WEIGHT
+    for (const t of cSet) if (haystack.has(t) && !qSet.has(t)) score += CASE_WEIGHT
+    if (preferChapterId && chapter.id === preferChapterId) score += CASE_SOURCE_BOOST
     return { chapter, score }
   })
 

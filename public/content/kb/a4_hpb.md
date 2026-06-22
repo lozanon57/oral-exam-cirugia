@@ -1,15 +1,15 @@
 # Hepatopancreatic-Biliary Surgery — Surgical Oncology — Liver, Pancreas, and Biliary Tract
 
-*Bloque A · Surgical Oncology · PGY3-4*
+*Block A · Surgical Oncology · PGY3-4*
 
-*Guías: NCCN Hepatocellular v2.2025 · NCCN Pancreatic v2.2025 · ESMO 2024 · ISGPS 2023*
+*Guidelines: NCCN Hepatocellular v2.2025 · NCCN Pancreatic v2.2025 · ESMO 2024 · ISGPS 2023*
 
 
 ## Liver: Couinaud Anatomy and Resection Planning
 
 The Couinaud classification divides the liver into 8 functionally independent segments based on portal pedicles and hepatic vein drainage. Each segment has its own portal triad (portal vein, hepatic artery, bile duct) and drains into one of the three hepatic veins. This functional independence allows individual segments to be resected while maintaining viability of adjacent segments — the anatomical basis of modern liver surgery.
 
-*(Figura: Figure 1. Couinaud liver segmentation. The main portal scissura (Cantlie's line, midplane of middle hepatic vein) divides the functional left from the right lobe. Segments I–IV constitute the left liver; V–VIII the right liver.)*
+*(Figure: Figure 1. Couinaud liver segmentation. The main portal scissura (Cantlie's line, midplane of middle hepatic vein) divides the functional left from the right lobe. Segments I–IV constitute the left liver; V–VIII the right liver.)*
 
 > **Board Pearl — FLR Requirements** — Minimum **Future Liver Remnant (FLR)** for safe major hepatectomy: ≥25% in normal liver; ≥30% after significant chemotherapy (>6 cycles); ≥40% in underlying liver disease (cirrhosis, steatohepatitis). When FLR is insufficient, portal vein embolisation (PVE) of the resection side induces 30–40% compensatory hypertrophy in 4–6 weeks.
 

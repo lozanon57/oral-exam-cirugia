@@ -1,8 +1,8 @@
 # Bariatric & Metabolic Surgery — General Surgery — Obesity, RYGB, Sleeve Gastrectomy & Metabolic Outcomes
 
-*Bloque B · General Surgery · PGY2-3*
+*Block B · General Surgery · PGY2-3*
 
-*Guías: IFSO-EASO Interdisciplinary European Guidelines 2022 · ASMBS/IFSO Updated Indications 2022 · IFSO 2023 Position Statement on Metabolic Surgery for T2DM*
+*Guidelines: IFSO-EASO Interdisciplinary European Guidelines 2022 · ASMBS/IFSO Updated Indications 2022 · IFSO 2023 Position Statement on Metabolic Surgery for T2DM*
 
 
 ## Indications and Patient Selection
@@ -120,7 +120,7 @@ Protein | 10–20% (SADI/DS highest) | Muscle wasting, oedema, impaired healing 
 
 The mechanisms of T2DM remission after bariatric surgery are incompletely understood but involve both weight-dependent and weight-independent pathways. Weight-independent mechanisms explain why T2DM can improve dramatically within days of surgery, before significant weight loss has occurred. (1) GLP-1 surge (foregut/hindgut hypothesis): after RYGB and sleeve, rapid delivery of nutrients to the distal gut (L-cells in ileum) causes a massive postprandial GLP-1 surge — 5–10 times normal. GLP-1 stimulates insulin secretion (incretin effect), suppresses glucagon, and improves beta-cell function. (2) Ghrelin reduction: the gastric fundus (primary ghrelin source) is resected in sleeve gastrectomy and excluded in RYGB. Ghrelin suppression reduces appetite, and some data suggest ghrelin directly impairs insulin sensitivity — its reduction may contribute to early T2DM remission. (3) Bile acid signalling: RYGB alters bile acid composition and delivery. Bile acids activate TGR5 receptors in the gut, stimulating GLP-1 release. Altered bile acid profiles post-bypass contribute to improved glucose metabolism through FXR and TGR5 receptor pathways. (4) Changes in gut microbiome: bariatric surgery dramatically alters the gut microbiome composition, increasing bacteria associated with improved metabolic function. Microbiome changes occur within days and may mediate some early metabolic effects. (5) Caloric restriction (weight-dependent): after 3–6 months, sustained weight loss improves hepatic insulin resistance, reduces intracellular lipid accumulation in pancreatic beta-cells, and improves peripheral insulin sensitivity. STAMPEDE trial (5-year data): 23% T2DM remission after RYGB vs 5% medical therapy; RYGB superior to sleeve at 5 years (23% vs 18% complete remission).
 
-**Ensayo de referencia — STAMPEDE Trial:**
+**Landmark trial — STAMPEDE Trial:**
 
 > **Board Pearl — ABCD Score Predicts T2DM Remission** — The ABCD score predicts likelihood of T2DM remission after bariatric surgery: Age <40y (1pt), BMI >35 (1pt), C-peptide level >2.9 ng/mL (2pts), Duration of T2DM <4 years (3pts) — maximum 10 points. Score >8 = 90%+ remission likelihood; score <3 = <50% likelihood. Short duration of T2DM (preserved beta-cell function) is the strongest predictor of remission — surgery is most effective before beta-cell exhaustion occurs.
 

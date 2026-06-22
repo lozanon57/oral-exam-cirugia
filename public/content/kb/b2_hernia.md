@@ -1,8 +1,8 @@
 # Hernia Surgery — General Surgery — Groin, Incisional & Abdominal Wall Reconstruction
 
-*Bloque B · General Surgery · PGY1-2*
+*Block B · General Surgery · PGY1-2*
 
-*Guías: EHS/HerniaSurge Inguinal Hernia Update 2023 (BJS Open) · EHS Midline Incisional Hernia 2023 (BJS) · EHS Primary Ventral Hernia 2019*
+*Guidelines: EHS/HerniaSurge Inguinal Hernia Update 2023 (BJS Open) · EHS Midline Incisional Hernia 2023 (BJS) · EHS Primary Ventral Hernia 2019*
 
 
 ## Anatomy of Groin Hernias

@@ -1,8 +1,8 @@
 # Gastric Cancer — Surgical Oncology — Gastrectomy, D2 Dissection & Perioperative Chemotherapy
 
-*Bloque A · Surgical Oncology · PGY2-3*
+*Block A · Surgical Oncology · PGY2-3*
 
-*Guías: NCCN Gastric Cancer v2.2025 · ESMO 2024 · JGCA 5th ed.*
+*Guidelines: NCCN Gastric Cancer v2.2025 · ESMO 2024 · JGCA 5th ed.*
 
 
 ## Surgical Anatomy and Lymph Node Stations
@@ -26,7 +26,7 @@ Station | Location | Vascular Reference | Included in D-Level
 12a | Hepatoduodenal ligament nodes | Along hepatic artery in hepatoduodenal ligament | D2
 16 | Para-aortic nodes | Around abdominal aorta | M1 disease — NOT D2
 
-*(Figura: Figure 1. Gastric lymph node stations 1–12 (JGCA 5th edition). D1 dissection removes perigastric stations 1–6. D2 dissection additionally removes stations 7–12 along named vascular structures.)*
+*(Figure: Figure 1. Gastric lymph node stations 1–12 (JGCA 5th edition). D1 dissection removes perigastric stations 1–6. D2 dissection additionally removes stations 7–12 along named vascular structures.)*
 
 > **Board Pearl — D2 Standard** — D2 lymphadenectomy is the standard for curative-intent gastrectomy in all guideline frameworks (NCCN, ESMO, JGCA). The 15-year follow-up of the Dutch D1D2 trial confirmed a survival advantage for D2 over D1 (29% vs 21% cancer-specific survival, p=0.034). A minimum of **16 lymph nodes** must be examined for adequate pathological staging (JGCA); AJCC requires ≥16 for valid N-staging.
 
@@ -97,7 +97,7 @@ M1 | Distant metastases (including station 16, peritoneal cytology +, peritoneal
 
 > **Staging Laparoscopy — When It Is Mandatory** — Staging laparoscopy with peritoneal washings (cytology) is recommended by NCCN for all cT3-T4 or node-positive gastric cancers before laparotomy. It detects occult peritoneal disease in **20–30%** of clinically resectable cases — preventing futile major surgery. Positive peritoneal cytology alone (P0 CY1) upgrades disease to M1 in JGCA staging (though AJCC 8th does not classify CY1 as M1 if no macroscopic peritoneal implants — know your guideline framework).
 
-**Ensayo de referencia — Dutch D1D2 Trial — 15-Year Follow-Up:**
+**Landmark trial — Dutch D1D2 Trial — 15-Year Follow-Up:**
 
 > **Minimum Lymph Node Requirements for Adequate Staging** — **AJCC TNM 8th edition:** ≥16 lymph nodes examined required for valid N-staging. **JGCA 5th edition:** ≥16 nodes required; recommends ≥25 nodes at expert centres. If fewer than 16 nodes are examined, pN0 is classified as pNx (inadequate staging) — this affects both prognosis and adjuvant therapy decisions. Low lymph node yield is a quality marker for gastrectomy and should be audited.
 
@@ -118,7 +118,7 @@ FLOT7-AIO | FLOT ± trastuzumab/pertuzumab peri-op (HER2+) | HER2+ resectable ga
 
 > **FLOT Regimen — Practical Considerations** — Key practical points for FLOT management: **(1) Toxicity profile:** Neutropenia (G3/4 in 51%), peripheral neuropathy (oxaliplatin), fatigue, nausea. G-CSF prophylaxis recommended. **(2) Response assessment:** CT restaging after 4 pre-operative cycles — if progressive disease, reassess operability. pCR or major pathological response is a favourable prognostic marker. **(3) Post-operative completion:** 4 post-operative cycles should be completed as planned; delays due to surgical complications require MDT review. **(4) Nutritional monitoring:** Weight and nutritional status must be tracked throughout — malnutrition delays surgery and reduces chemotherapy tolerance.
 
-**Ensayo de referencia — FLOT4 — Perioperative FLOT vs ECF/ECX:**
+**Landmark trial — FLOT4 — Perioperative FLOT vs ECF/ECX:**
 
 > **Mandatory Biomarker Panel — NCCN 2025 / ESMO 2024** — A comprehensive biomarker panel must be performed on ALL newly diagnosed gastric/GEJ adenocarcinomas: **(1) HER2** (IHC ± ISH): HER2+ (IHC 3+ or 2+/ISH+) — first-line trastuzumab + pembrolizumab + chemotherapy (KEYNOTE-811; Category 1, NCCN 2025/ESMO 2024). **(2) PD-L1 CPS** (combined positive score): CPS ≥5 → nivolumab + FOLFOX first-line (CheckMate 649; Category 1). **(3) MSI/MMR**: dMMR patients benefit from immunotherapy; consider omitting perioperative chemotherapy. **(4) CLDN18.2** (claudin 18 isoform 2): CLDN18.2+ (IHC ≥2+ in ≥75% tumour cells), RAS-WT, HER2-negative → zolbetuximab + FOLFOX/XELOX first-line (SPOTLIGHT/GLOW trials; FDA approved May 2024). **(5) FGFR2b**: emerging biomarker for bemarituzumab eligibility. HER2 expression may be lost at progression — **retesting at recurrence is mandatory**.
 
@@ -158,7 +158,7 @@ Siewert III | 2–5cm below GOJ (subcardial) | Gastric cardia mucosa | Extended 
 
 The **CROSS trial** (van Hagen, NEJM 2012) demonstrated that neoadjuvant chemoradiotherapy (carboplatin/paclitaxel + 41.4Gy radiation) followed by surgery improved median OS from 24 to 49 months compared to surgery alone in oesophageal and GEJ cancer (predominantly Siewert I). The **pCR rate was 29% overall** (49% for squamous cell carcinoma, 23% for adenocarcinoma). For Siewert II tumours with significant oesophageal involvement, CROSS may be preferred over FLOT by some centres, especially in North America. For Siewert III tumours, FLOT is standard. This represents an area of active clinical equipoise (ESOPEC trial: FLOT vs CROSS for resectable oesophageal/GEJ — results showed FLOT superior for adenocarcinoma, Hoeppner Lancet 2024).
 
-**Ensayo de referencia — ESOPEC Trial — FLOT vs CROSS for Oesophageal/GEJ Cancer:**
+**Landmark trial — ESOPEC Trial — FLOT vs CROSS for Oesophageal/GEJ Cancer:**
 
 > **Frozen Section at the Proximal Oesophageal Margin — Non-Negotiable** — For all Siewert II resections and any GOJ tumour with oesophageal involvement, **intraoperative frozen section of the proximal oesophageal margin is mandatory**. The submucosal spread of diffuse-type GOJ tumours makes gross margin assessment unreliable. If the first frozen section is positive (R1), the resection must be extended — additional oesophageal resection is required before closing. Discovering R1 status on permanent pathology after recovery forecloses the option of immediate re-resection.
 

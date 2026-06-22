@@ -1,8 +1,8 @@
 # Peer Review & Publication — Academic Surgery — Submission Strategy, Peer Review Process, Open Access & Research Integrity
 
-*Bloque C · Academic Surgery · PGY2-4*
+*Block C · Academic Surgery · PGY2-4*
 
-*Guías: ICMJE Recommendations 2024 · COPE Guidelines 2022 · WAME 2023 · Plan S 2021*
+*Guidelines: ICMJE Recommendations 2024 · COPE Guidelines 2022 · WAME 2023 · Plan S 2021*
 
 
 ## Authorship and Research Integrity

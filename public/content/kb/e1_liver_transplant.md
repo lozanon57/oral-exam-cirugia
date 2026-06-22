@@ -1,8 +1,8 @@
 # Liver Transplantation
 
-*Bloque E · Transplantation & Vascular · PGY4-5*
+*Block E · Transplantation & Vascular · PGY4-5*
 
-*Guías: EASL 2021; ILTS 2022*
+*Guidelines: EASL 2021; ILTS 2022*
 
 
 ## Indications & Contraindications

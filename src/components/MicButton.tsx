@@ -12,7 +12,7 @@ export function MicButton({ listening, disabled, onStart, onStop }: Props) {
       disabled={disabled}
       onClick={listening ? onStop : onStart}
       aria-pressed={listening}
-      aria-label={listening ? 'Detener grabación' : 'Hablar'}
+      aria-label={listening ? 'Stop recording' : 'Speak'}
       className={`relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl transition
         ${disabled ? 'cursor-not-allowed bg-exam-panel2 text-slate-600' : ''}
         ${listening ? 'bg-exam-danger text-white' : 'bg-exam-accent text-white hover:bg-exam-accentHover'}`}

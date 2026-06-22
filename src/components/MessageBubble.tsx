@@ -75,26 +75,29 @@ export function MessageBubble({ message, onSpeak }: Props) {
         }`}
       >
         <div className="mb-1 text-xs font-semibold uppercase tracking-wide opacity-60">
-          {isUser ? 'Residente' : 'Examinador'}
+          {isUser ? 'Resident' : 'Examiner'}
         </div>
         <div className="prose-answer">{renderContent(message.content)}</div>
 
         {!isUser && (
-          <div className="mt-2 flex items-center gap-3">
-            {onSpeak && (
-              <button
-                onClick={() => onSpeak(message.content)}
-                className="text-xs text-slate-400 hover:text-white"
-                title="Leer en voz alta"
-              >
-                🔊 Leer
-              </button>
-            )}
-            {message.sources && message.sources.length > 0 && (
-              <span className="text-[11px] text-slate-500">
-                Material: {message.sources.join(', ')}
-              </span>
-            )}
+          <div className="mt-2 flex flex-col gap-1">
+            <div className="flex items-center gap-3">
+              {onSpeak && (
+                <button
+                  onClick={() => onSpeak(message.content)}
+                  className="text-xs text-slate-400 hover:text-white"
+                  title="Read aloud"
+                >
+                  🔊 Read aloud
+                </button>
+              )}
+              {message.sources && message.sources.length > 0 && (
+                <span className="text-[11px] text-slate-500">
+                  Material: {message.sources.join(', ')}
+                </span>
+              )}
+            </div>
+            {message.note && <span className="text-[11px] italic text-slate-500">{message.note}</span>}
           </div>
         )}
       </div>

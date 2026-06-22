@@ -1,8 +1,8 @@
 # Renal & Multivisceral Transplantation
 
-*Bloque E · Transplantation & Vascular · PGY4-5*
+*Block E · Transplantation & Vascular · PGY4-5*
 
-*Guías: KDIGO 2022; ERA 2022*
+*Guidelines: KDIGO 2022; ERA 2022*
 
 
 ## Renal Transplantation

@@ -1,39 +1,51 @@
 import type { ClinicalCase } from './types'
+import type { RetrievedChunk } from './engines/types'
 
-// System prompt for the oral-exam examiner. Spanish, exam-style, grounded only
+// System prompt for the oral-exam examiner. English, exam-style, grounded ONLY
 // in the provided material.
-export const SYSTEM_PROMPT = `Eres un adjunto experto de Cirugía General que examina a un residente en una prueba oral (estilo MIR / examen de residencia).
+export const SYSTEM_PROMPT = `You are an expert General Surgery attending examining a resident in an oral board exam (viva).
 
-REGLAS DE ESTILO (respuesta oral de examen):
-- Directo, conciso, estructurado y preciso. Sin rodeos ni listas largas.
-- Vas al grano: diagnóstico diferencial priorizado → prueba/conducta indicada → justificación breve basada en evidencia o protocolo.
-- Tono de adjunto experto que evalúa: puedes repreguntar o matizar, pero responde primero.
-- Respuestas de pocas frases, salvo que se pida desarrollar. Pensadas para decirse en voz alta.
+ANSWER STYLE (spoken exam answer):
+- Direct, concise, structured, precise. No padding, no long lists.
+- Get to the point: prioritised differential diagnosis -> indicated test/management -> brief evidence/protocol justification.
+- Tone of an expert attending assessing a trainee; you may probe or add nuance, but answer first.
+- A few sentences unless asked to elaborate. Written to be said out loud.
 
-REGLA DE ORO DE EXACTITUD (crítica, contenido médico):
-- Responde SOLO con base en el MATERIAL proporcionado (base de conocimiento del curso HGUGM y el caso clínico activo).
-- Si algo NO está cubierto en el material o es clínicamente ambiguo, dilo explícitamente: "Esto no está en el material; según la práctica habitual..." y márcalo claramente. NO inventes datos, cifras ni guías.
-- Cita la guía o ensayo cuando el material lo aporte (p. ej. "según NCCN..."), sin inventar referencias.
+GOLDEN RULE OF ACCURACY (critical — medical content):
+- Answer ONLY from the provided MATERIAL (the HGUGM course knowledge base and the active clinical case).
+- If something is NOT covered in the material or is clinically ambiguous, say so explicitly: "This is not in the material; in usual practice..." and flag it clearly. NEVER invent data, figures, or guidelines.
+- Cite the guideline or trial when the material provides it (e.g. "per NCCN..."), without fabricating references.
 
-CONTEXTO:
-- Mantienes el hilo del caso a lo largo de varias preguntas.
-- Es un entorno de ENTRENAMIENTO ACADÉMICO. No das consejo médico para pacientes reales.
-- Responde SIEMPRE en español, aunque el material esté en inglés.`
+CONTEXT:
+- Maintain the thread of the case across several questions.
+- This is an ACADEMIC TRAINING environment. Do not give medical advice for real patients.
+- Always answer in English.`
 
 export function buildCaseContext(activeCase: ClinicalCase): string {
-  return `=== CASO CLÍNICO ACTIVO ===
-Título: ${activeCase.titulo}
-Tema: ${activeCase.tema}
-Presentación: ${activeCase.presentacion}
-Puntos clave a explorar: ${activeCase.puntosClave.join('; ')}`
+  return `=== ACTIVE CLINICAL CASE ===
+Title: ${activeCase.titulo}
+Topic: ${activeCase.tema}
+Presentation: ${activeCase.presentacion}
+Key points to explore: ${activeCase.puntosClave.join('; ')}`
 }
 
-export function buildKnowledgeContext(chunks: { title: string; text: string }[]): string {
+export function buildKnowledgeContext(chunks: RetrievedChunk[]): string {
   if (!chunks.length) {
-    return '=== MATERIAL ===\n(No se recuperó material específico para esta pregunta. Si la respuesta no está en el caso, indícalo.)'
+    return '=== MATERIAL ===\n(No specific material was retrieved for this question. If the answer is not in the case, say so.)'
   }
   const body = chunks
-    .map((c, i) => `--- FRAGMENTO ${i + 1}: ${c.title} ---\n${c.text}`)
+    .map((c, i) => `--- EXCERPT ${i + 1}: ${c.title} ---\n${c.text}`)
     .join('\n\n')
-  return `=== MATERIAL (base de conocimiento del curso — única fuente válida) ===\n${body}`
+  return `=== MATERIAL (course knowledge base — the only valid source) ===\n${body}`
+}
+
+// Compose the full user-turn content (context + question) for generative engines.
+export function buildUserTurn(activeCase: ClinicalCase, chunks: RetrievedChunk[], question: string): string {
+  return (
+    buildCaseContext(activeCase) +
+    '\n\n' +
+    buildKnowledgeContext(chunks) +
+    '\n\n=== RESIDENT QUESTION ===\n' +
+    question
+  )
 }

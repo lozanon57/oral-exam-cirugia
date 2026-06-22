@@ -62,7 +62,7 @@ function blockToMarkdown(b) {
       return b.content || ''
     case 'case_opener':
     case 'case':
-      return `**Caso:** ${b.scenario || b.content || ''}`
+      return `**Case:** ${b.scenario || b.content || ''}`
     case 'callout': {
       const label = b.style ? `[${b.style}] ` : ''
       const title = b.title ? `**${b.title}** — ` : ''
@@ -70,12 +70,12 @@ function blockToMarkdown(b) {
     }
     case 'key_points': {
       const items = (b.points || b.items || []).map((p) => `- ${p}`).join('\n')
-      return `**Puntos clave:**\n${items}`
+      return `**Key points:**\n${items}`
     }
     case 'landmark_trial': {
-      const name = b.name || b.title || 'Ensayo'
+      const name = b.name || b.title || 'Trial'
       const finding = b.finding || b.summary || b.content || ''
-      return `**Ensayo de referencia — ${name}:** ${finding}`
+      return `**Landmark trial — ${name}:** ${finding}`
     }
     case 'table': {
       const rows = b.rows || []
@@ -88,7 +88,7 @@ function blockToMarkdown(b) {
       return `${cap}${lines.join('\n')}`
     }
     case 'figure':
-      return b.caption ? `*(Figura: ${b.caption})*` : ''
+      return b.caption ? `*(Figure: ${b.caption})*` : ''
     default:
       return b.content || ''
   }
@@ -97,8 +97,8 @@ function blockToMarkdown(b) {
 function chapterToMarkdown(c) {
   const out = []
   out.push(`# ${c.title}${c.subtitle ? ` — ${c.subtitle}` : ''}`)
-  out.push(`*Bloque ${c.block} · ${c.block_name} · ${c.level || ''}*`)
-  if (c.guidelines_version) out.push(`*Guías: ${c.guidelines_version}*`)
+  out.push(`*Block ${c.block} · ${c.block_name} · ${c.level || ''}*`)
+  if (c.guidelines_version) out.push(`*Guidelines: ${c.guidelines_version}*`)
   for (const s of c.sections || []) {
     out.push(`\n## ${s.title}`)
     for (const b of s.blocks || []) {
@@ -170,6 +170,7 @@ for (const file of files) {
       presentacion: scenario,
       puntosClave: (c.learning_objectives || []).slice(0, 5),
       fuente: chapterId,
+      // NOTE: keys are internal (legacy es); values are English.
     })
   }
 }
@@ -189,11 +190,11 @@ if (cases.length < 8) {
       titulo: entry.title,
       tema: entry.block_name,
       presentacion:
-        `Caso de examen oral sobre ${entry.title} (${entry.block_name}). `
-        + `El examinador planteará un escenario clínico de esta área. `
-        + `Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. `
-        + `Temas de la materia: ${entry.section_titles.slice(0, 4).join('; ')}.`,
-      puntosClave: ['diagnóstico diferencial', 'pruebas a solicitar', 'manejo y técnica', 'complicaciones'],
+        `Oral-exam case on ${entry.title} (${entry.block_name}). `
+        + `The examiner will pose a clinical scenario from this area. `
+        + `Be ready for the differential diagnosis, indicated tests, and management. `
+        + `Material topics: ${entry.section_titles.slice(0, 4).join('; ')}.`,
+      puntosClave: ['differential diagnosis', 'tests to order', 'management & technique', 'complications'],
       fuente: entry.id,
     })
     used.add(entry.id)

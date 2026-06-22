@@ -1,8 +1,8 @@
 # Endocrine Surgery — Surgical Oncology — Thyroid, Parathyroid, Adrenal & Neuroendocrine Tumours
 
-*Bloque A · Surgical Oncology · PGY2-4*
+*Block A · Surgical Oncology · PGY2-4*
 
-*Guías: ATA 2023 MTC Guidelines · ATA 2015/2023 Thyroid Nodule · ETA 2023 · ENETS 2023 · Endocrine Society 2021 · AAES Guidelines 2022 · ESMO 2023 NETs · ESE 2023 ACC*
+*Guidelines: ATA 2023 MTC Guidelines · ATA 2015/2023 Thyroid Nodule · ETA 2023 · ENETS 2023 · Endocrine Society 2021 · AAES Guidelines 2022 · ESMO 2023 NETs · ESE 2023 ACC*
 
 
 ## Thyroid Cancer — Classification, Staging & Oncological Management

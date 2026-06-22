@@ -51,9 +51,9 @@ export function Chat({
       <div className="flex-1 space-y-3 overflow-y-auto px-1 py-3">
         {messages.length === 0 && (
           <div className="mt-6 text-center text-sm text-slate-500">
-            Pulsa el micrófono y formula tu pregunta sobre el caso.
+            Tap the microphone and ask your question about the case.
             <br />
-            El examinador responderá basándose en el material del curso.
+            The examiner answers from the course material.
           </div>
         )}
         {messages.map((m) => (
@@ -87,7 +87,7 @@ export function Chat({
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && submit()}
-            placeholder={micSupported ? 'O escribe tu pregunta…' : 'Escribe tu pregunta (voz no soportada)…'}
+            placeholder={micSupported ? 'Or type your question…' : 'Type your question (voice not supported)…'}
             disabled={disabled || loading}
             className="flex-1 rounded-xl border border-exam-border bg-exam-bg px-4 py-3 text-sm outline-none focus:border-exam-accent disabled:opacity-50"
           />
@@ -96,7 +96,7 @@ export function Chat({
             disabled={disabled || loading || !text.trim()}
             className="rounded-xl bg-exam-accent px-4 py-3 text-sm font-medium text-white hover:bg-exam-accentHover disabled:opacity-40"
           >
-            Enviar
+            Send
           </button>
         </div>
       </div>

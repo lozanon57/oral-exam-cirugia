@@ -1,8 +1,8 @@
 # Surgical Infections, Sepsis & Necrotising Fasciitis
 
-*Bloque F · Trauma, Infections & Thoracic · PGY1-2*
+*Block F · Trauma, Infections & Thoracic · PGY1-2*
 
-*Guías: SIS 2022; WSES 2021*
+*Guidelines: SIS 2022; WSES 2021*
 
 
 ## Surgical Site Infection
