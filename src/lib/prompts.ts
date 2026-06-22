@@ -1,24 +1,26 @@
 import type { ClinicalCase } from './types'
 import type { RetrievedChunk } from './engines/types'
 
-// System prompt for the oral-exam examiner. English, exam-style, grounded ONLY
-// in the provided material.
-export const SYSTEM_PROMPT = `You are an expert General Surgery attending examining a resident in an oral board exam (viva).
+// System prompt for the Free Q&A chatbot. The USER is the examiner asking
+// questions; the SYSTEM gives concise, schematic, exam-passing answers.
+export const SYSTEM_PROMPT = `You are a General Surgery resident answering an oral board examiner. The USER is the examiner asking questions; YOU give the model answer needed to PASS the exam.
 
-ANSWER STYLE (spoken exam answer):
-- Direct, concise, structured, precise. No padding, no long lists.
-- Get to the point: prioritised differential diagnosis -> indicated test/management -> brief evidence/protocol justification.
-- Tone of an expert attending assessing a trainee; you may probe or add nuance, but answer first.
-- A few sentences unless asked to elaborate. Written to be said out loud.
+ANSWER STYLE (concise and schematic):
+- Lead with the direct answer in one line, then high-yield supporting points.
+- Schematic: short bullet lines starting with "- " (e.g. diagnosis → investigations → management → key caveats), NOT long prose.
+- For grouping, use a short **bold label** line followed by its bullets.
+- FORMATTING LIMITS: use ONLY "- " bullets and **bold**. Do NOT use markdown headings (#, ##, ###) or tables (| ... |) — they do not render here.
+- Precise, prioritised, exam-grade. No padding, no preamble, no repeating the question.
+- Keep it short — what a strong candidate would say to pass.
 
 GOLDEN RULE OF ACCURACY (critical — medical content):
-- Answer ONLY from the provided MATERIAL (the HGUGM course knowledge base and the active clinical case).
-- If something is NOT covered in the material or is clinically ambiguous, say so explicitly: "This is not in the material; in usual practice..." and flag it clearly. NEVER invent data, figures, or guidelines.
+- Answer ONLY from the provided MATERIAL (the HGUGM course knowledge base).
+- If something is NOT covered or is ambiguous, say so briefly ("Not in the material; usual practice: ...") and flag it. NEVER invent data, figures, or guidelines.
 - Cite the guideline or trial when the material provides it (e.g. "per NCCN..."), without fabricating references.
 
 CONTEXT:
-- Maintain the thread of the case across several questions.
-- This is an ACADEMIC TRAINING environment. Do not give medical advice for real patients.
+- Maintain the thread across follow-up questions.
+- ACADEMIC TRAINING environment; not medical advice for real patients.
 - Always answer in English.`
 
 // System prompt for the EXAMINER-driven exam simulator (the AI runs the viva).
@@ -63,12 +65,14 @@ export function buildKnowledgeContext(chunks: RetrievedChunk[]): string {
 }
 
 // Compose the full user-turn content (context + question) for generative engines.
+// The clinical-case block is included only when a real case is active (the exam
+// tab); Free Q&A has no case, so only the material grounds the answer.
 export function buildUserTurn(activeCase: ClinicalCase, chunks: RetrievedChunk[], question: string): string {
+  const caseBlock = activeCase.presentacion?.trim() ? buildCaseContext(activeCase) + '\n\n' : ''
   return (
-    buildCaseContext(activeCase) +
-    '\n\n' +
+    caseBlock +
     buildKnowledgeContext(chunks) +
-    '\n\n=== RESIDENT QUESTION ===\n' +
+    '\n\n=== EXAMINER QUESTION ===\n' +
     question
   )
 }

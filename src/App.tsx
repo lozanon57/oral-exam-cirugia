@@ -3,16 +3,14 @@ import type { AppSettings, ClinicalCase, KbChapter } from './lib/types'
 import { DEFAULT_MODEL } from './lib/anthropicClient'
 import { DEFAULT_LOCAL_MODEL } from './lib/engines/webllmEngine'
 import { PROXY_MODE } from './lib/config'
-import { generativeAvailable, generativeChat } from './lib/generate'
-import { AnthropicError } from './lib/anthropicClient'
-import { loadKbIndex, loadCases, loadChunk } from './data/loadContent'
+import { generativeAvailable } from './lib/generate'
+import { loadKbIndex } from './data/loadContent'
 import { useChat } from './hooks/useChat'
 import { useExam } from './hooks/useExam'
 import { useSpeechRecognition } from './hooks/useSpeechRecognition'
 import { useSpeechSynthesis } from './hooks/useSpeechSynthesis'
 import { useWebLLM } from './hooks/useWebLLM'
 import { Chat } from './components/Chat'
-import { CaseBar } from './components/CaseBar'
 import { ExamView } from './components/ExamView'
 import { Settings } from './components/Settings'
 import { PasswordGate } from './components/PasswordGate'
@@ -29,11 +27,13 @@ const DEFAULT_SETTINGS: AppSettings = {
   rate: 1,
 }
 
-// Fallback while the case bank loads.
-const PLACEHOLDER_CASE: ClinicalCase = {
-  id: 'loading',
+// Free Q&A has no clinical case: the user is the examiner asking questions and
+// the system answers. A neutral pseudo-case keeps the retrieval/chat pipeline
+// running with the question alone driving relevance.
+const NO_CASE: ClinicalCase = {
+  id: 'qa',
   titulo: '',
-  tema: 'General Surgery',
+  tema: '',
   presentacion: '',
   puntosClave: [],
   fuente: '',
@@ -60,10 +60,7 @@ export default function App() {
   const [tab, setTab] = useState<Tab>('exam')
 
   const [kbChapters, setKbChapters] = useState<KbChapter[]>([])
-  const [cases, setCases] = useState<ClinicalCase[]>([])
-  const [caseIdx, setCaseIdx] = useState(0)
   const [loadError, setLoadError] = useState<string | null>(null)
-  const [generating, setGenerating] = useState(false)
   const [examMuted, setExamMuted] = useState(false)
 
   const tts = useSpeechSynthesis()
@@ -74,23 +71,17 @@ export default function App() {
   }, [settings])
 
   useEffect(() => {
-    Promise.all([loadKbIndex(), loadCases()])
-      .then(([kb, c]) => {
-        setKbChapters(kb.chapters)
-        setCases(c.casos)
-        if (c.casos.length) setCaseIdx(Math.floor(Math.random() * c.casos.length))
-      })
+    loadKbIndex()
+      .then((kb) => setKbChapters(kb.chapters))
       .catch((e) => setLoadError(e?.message || 'Could not load content.'))
   }, [])
-
-  const activeCase = cases[caseIdx] ?? PLACEHOLDER_CASE
 
   const speak = useCallback(
     (text: string) => tts.speak(text, settings.voiceURI || undefined, settings.rate),
     [tts, settings.voiceURI, settings.rate],
   )
 
-  // Examiner messages are read aloud unless muted.
+  // Examiner messages (exam tab) are read aloud unless muted.
   const speakExaminer = useCallback(
     (text: string) => {
       if (!examMuted && tts.supported) speak(text)
@@ -105,110 +96,22 @@ export default function App() {
     onExaminer: speakExaminer,
   })
 
+  // Free Q&A: the user asks (chatbot); the system gives concise, schematic answers.
   const qa = useChat({
     settings,
-    activeCase,
+    activeCase: NO_CASE,
     kbChapters,
     localGenerate: webllm.generate,
     localReady: webllm.status === 'ready',
   })
 
-  // Free Q&A is a voice tab: answers are read aloud.
   const handleQaAsk = useCallback(
     async (question: string) => {
       const answer = await qa.ask(question)
-      if (answer && tts.supported) speak(answer)
+      if (answer && settings.ttsEnabled) speak(answer)
     },
-    [qa, tts.supported, speak],
+    [qa, settings.ttsEnabled, speak],
   )
-
-  // Read the active case aloud (the case is never shown as text in Free Q&A).
-  const readCaseIdRef = useRef<string | null>(null)
-  const readCase = useCallback(
-    (c: ClinicalCase | null) => {
-      if (!c || !c.presentacion || !tts.supported) return
-      readCaseIdRef.current = c.id
-      speak(c.presentacion)
-    },
-    [tts.supported, speak],
-  )
-
-  // Auto-read the case when entering Free Q&A or when the case changes.
-  useEffect(() => {
-    if (tab !== 'qa' || !cases.length) return
-    const c = cases[caseIdx]
-    if (!c || readCaseIdRef.current === c.id) return
-    readCase(c)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tab, caseIdx, cases.length])
-
-  // Free Q&A: refresh/change the active clinical case (random) and reset the chat.
-  const changeCase = useCallback(() => {
-    tts.cancel()
-    qa.reset()
-    setCaseIdx((i) => {
-      if (cases.length <= 1) return i
-      let next = i
-      while (next === i) next = Math.floor(Math.random() * cases.length)
-      return next
-    })
-  }, [cases.length, qa, tts])
-
-  // Free Q&A: generate a brand-new case from the material via a generative engine.
-  const generateCase = useCallback(async () => {
-    if (!kbChapters.length) return
-    if (!generativeAvailable(settings, webllm.status === 'ready')) {
-      setLoadError('To generate a new case, enable Claude (server/API) or load the local LLM in Settings.')
-      setShowSettings(true)
-      return
-    }
-    setGenerating(true)
-    setLoadError(null)
-    try {
-      const chapter = kbChapters[Math.floor(Math.random() * kbChapters.length)]
-      const material = (await loadChunk(chapter.file)).slice(0, 8000)
-      const raw = await generativeChat({
-        system:
-          'You generate realistic General Surgery oral-exam clinical cases in English, based ONLY on the given material. '
-          + 'Return ONLY a valid JSON object, no extra text or markdown.',
-        messages: [
-          {
-            id: 'gen',
-            role: 'user',
-            content:
-              `Material (topic "${chapter.title}"):\n${material}\n\n`
-              + 'Create a novel, realistic oral-exam clinical case based on this material. '
-              + 'Exact JSON: {"title": string, "topic": string, "presentation": string (chief complaint, history, exam, vitals, initial tests; viva style), "keyPoints": string[] (4 items)}',
-          },
-        ],
-        settings,
-        localGenerate: webllm.generate,
-        maxTokens: 900,
-      })
-      const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim())
-      const newCase: ClinicalCase = {
-        id: `gen-${Date.now()}`,
-        titulo: parsed.title || chapter.title,
-        tema: parsed.topic || chapter.block_name,
-        presentacion: parsed.presentation || '',
-        puntosClave: Array.isArray(parsed.keyPoints) ? parsed.keyPoints : [],
-        fuente: chapter.id,
-      }
-      tts.cancel()
-      qa.reset()
-      setCases((prev) => {
-        const next = [...prev, newCase]
-        setCaseIdx(next.length - 1)
-        return next
-      })
-    } catch (e) {
-      setLoadError(e instanceof AnthropicError ? e.message : 'Could not generate the case (invalid response).')
-    } finally {
-      setGenerating(false)
-    }
-  }, [settings, kbChapters, qa, tts, webllm])
-
-  const handleExamAnswer = useCallback((text: string) => exam.answer(text), [exam])
 
   // One shared speech recogniser; route the transcript to the active tab.
   const tabRef = useRef<Tab>(tab)
@@ -235,17 +138,13 @@ export default function App() {
     return map[settings.engine]
   }, [settings.engine, settings.apiKey, webllm.status])
 
-  const stopVoice = useCallback(() => {
-    tts.cancel()
-    stt.stop()
-  }, [tts, stt])
-
   const switchTab = useCallback(
     (next: Tab) => {
-      stopVoice()
+      tts.cancel()
+      stt.stop()
       setTab(next)
     },
-    [stopVoice],
+    [tts, stt],
   )
 
   if (!unlocked) return <PasswordGate onUnlock={() => setUnlocked(true)} />
@@ -307,7 +206,7 @@ export default function App() {
             micError={stt.error}
             onMicStart={stt.start}
             onMicStop={stt.stop}
-            onAnswer={handleExamAnswer}
+            onAnswer={exam.answer}
             onSpeak={tts.supported ? speak : undefined}
             speaking={tts.speaking}
             muted={examMuted}
@@ -317,41 +216,26 @@ export default function App() {
             }}
           />
         ) : (
-          <div className="flex h-full flex-col">
-            <CaseBar
-              activeCase={cases.length ? activeCase : null}
-              index={caseIdx}
-              total={cases.length}
-              ttsSupported={tts.supported}
-              speaking={tts.speaking}
-              onReplay={() => readCase(activeCase)}
-              onChange={changeCase}
-              onGenerate={generateCase}
-              generating={generating}
-            />
-            <div className="min-h-0 flex-1">
-              <Chat
-                messages={qa.messages}
-                loading={qa.loading}
-                micSupported={stt.supported}
-                listening={stt.listening}
-                interimText={stt.interimText}
-                micError={stt.error}
-                apiError={qa.error}
-                onMicStart={stt.start}
-                onMicStop={stt.stop}
-                onSubmitText={handleQaAsk}
-                onSpeak={tts.supported ? speak : undefined}
-                emptyHint={
-                  <>
-                    Listen to the case, then answer or ask by microphone.
-                    <br />
-                    Use “▶ Play case” to hear it again or “↻ Change case” to switch.
-                  </>
-                }
-              />
-            </div>
-          </div>
+          <Chat
+            messages={qa.messages}
+            loading={qa.loading}
+            micSupported={stt.supported}
+            listening={stt.listening}
+            interimText={stt.interimText}
+            micError={stt.error}
+            apiError={qa.error}
+            onMicStart={stt.start}
+            onMicStop={stt.stop}
+            onSubmitText={handleQaAsk}
+            onSpeak={tts.supported ? speak : undefined}
+            emptyHint={
+              <>
+                You are the examiner — ask a question by voice or text.
+                <br />
+                The system answers concisely, exam-style, from the course material.
+              </>
+            }
+          />
         )}
       </div>
 
