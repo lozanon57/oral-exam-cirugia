@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "casos": [
+    {
+      "id": "caso-001",
+      "titulo": "Principles of Surgical Oncology",
+      "tema": "Surgical Oncology",
+      "presentacion": "A 58-year-old man is referred to your surgical oncology clinic following diagnosis of a 4 cm sigmoid colon adenocarcinoma. Colonoscopy confirms the lesion at 30 cm from the anal verge. CT chest/abdomen/pelvis shows no distant metastases but identifies two suspicious periaortic lymph nodes. MSI/MMR testing is pending. He is otherwise well, ECOG 0.",
+      "puntosClave": [
+        "Explain the biological basis of tumour invasion and metastasis relevant to surgical decision-making",
+        "Apply R-classification (R0/R1/R2) and interpret its prognostic implications",
+        "Justify the principles of lymphadenectomy and sentinel node biopsy",
+        "Describe the rationale and sequencing of neoadjuvant and adjuvant therapy",
+        "Define the structure and evidence base for multidisciplinary tumour boards"
+      ],
+      "fuente": "A1"
+    },
+    {
+      "id": "caso-002",
+      "titulo": "Colorectal Cancer",
+      "tema": "Surgical Oncology",
+      "presentacion": "A 62-year-old man is referred with a 2-week history of rectal bleeding and change in bowel habit. Colonoscopy identifies a 3 cm mass at 8 cm from the anal verge. Biopsy confirms adenocarcinoma. He has no significant comorbidities (ECOG 0). His wife is present and very anxious about whether he will 'need a bag'.",
+      "puntosClave": [
+        "Describe the anatomical basis and surgical planes of TME",
+        "Apply NCCN 2026 staging criteria to determine neoadjuvant strategy for rectal cancer",
+        "Identify the technical steps and critical landmarks of right hemicolectomy, left hemicolectomy, and low anterior resection",
+        "Interpret MRI mesorectal staging and CRM threat assessment",
+        "Grade and manage anastomotic leak using the International Study Group classification"
+      ],
+      "fuente": "A2"
+    },
+    {
+      "id": "caso-003",
+      "titulo": "Hypothesis Generation & Research Question",
+      "tema": "Academic Surgery",
+      "presentacion": "You are a PGY3 surgical resident who has noticed that patients undergoing emergency colostomy reversal (Hartmann's reversal) at your centre have a higher anastomotic leak rate when the reversal is performed within 3 months of the original operation compared to those operated after 6 months. You want to design a study to test this observation formally.",
+      "puntosClave": [
+        "Apply the FINER criteria to evaluate the quality of a research question",
+        "Construct a PICO question from a clinical observation",
+        "Distinguish null hypothesis, alternative hypothesis, and directional hypothesis",
+        "Identify common errors in hypothesis formulation (HARKing, p-hacking, outcome switching)",
+        "Match a hypothesis to an appropriate study design"
+      ],
+      "fuente": "C1"
+    },
+    {
+      "id": "caso-004",
+      "titulo": "Gastric Cancer",
+      "tema": "Surgical Oncology",
+      "presentacion": "Caso de examen oral sobre Gastric Cancer (Surgical Oncology). El examinador planteará un escenario clínico de esta área. Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. Temas de la materia: Surgical Anatomy and Lymph Node Stations; Operative Procedures; Post-Gastrectomy Syndromes; Gastric Cancer Staging and Lymphadenectomy.",
+      "puntosClave": [
+        "diagnóstico diferencial",
+        "pruebas a solicitar",
+        "manejo y técnica",
+        "complicaciones"
+      ],
+      "fuente": "A3"
+    },
+    {
+      "id": "caso-005",
+      "titulo": "Hepatopancreatic-Biliary Surgery",
+      "tema": "Surgical Oncology",
+      "presentacion": "Caso de examen oral sobre Hepatopancreatic-Biliary Surgery (Surgical Oncology). El examinador planteará un escenario clínico de esta área. Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. Temas de la materia: Liver: Couinaud Anatomy and Resection Planning; Pancreaticoduodenectomy (Whipple Procedure); Cholangiocarcinoma; Pancreatic Cancer — Resectability Criteria & Borderline Disease.",
+      "puntosClave": [
+        "diagnóstico diferencial",
+        "pruebas a solicitar",
+        "manejo y técnica",
+        "complicaciones"
+      ],
+      "fuente": "A4"
+    },
+    {
+      "id": "caso-006",
+      "titulo": "Breast Surgery & Melanoma",
+      "tema": "Surgical Oncology",
+      "presentacion": "Caso de examen oral sobre Breast Surgery & Melanoma (Surgical Oncology). El examinador planteará un escenario clínico de esta área. Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. Temas de la materia: Breast Conservation vs Mastectomy; Sentinel Node Biopsy Technique; Molecular Subtypes and Surgical Implications; Neoadjuvant Chemotherapy — Indications & Surgical Planning.",
+      "puntosClave": [
+        "diagnóstico diferencial",
+        "pruebas a solicitar",
+        "manejo y técnica",
+        "complicaciones"
+      ],
+      "fuente": "A5"
+    },
+    {
+      "id": "caso-007",
+      "titulo": "Sarcoma & Peritoneal Oncology",
+      "tema": "Surgical Oncology",
+      "presentacion": "Caso de examen oral sobre Sarcoma & Peritoneal Oncology (Surgical Oncology). El examinador planteará un escenario clínico de esta área. Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. Temas de la materia: Retroperitoneal Sarcoma; Cytoreductive Surgery + HIPEC; PIPAC — Pressurised Intraperitoneal Aerosol Chemotherapy; Pseudomyxoma Peritonei — Histological Subtypes & CRS+HIPEC.",
+      "puntosClave": [
+        "diagnóstico diferencial",
+        "pruebas a solicitar",
+        "manejo y técnica",
+        "complicaciones"
+      ],
+      "fuente": "A6"
+    },
+    {
+      "id": "caso-008",
+      "titulo": "Endocrine Surgery",
+      "tema": "Surgical Oncology",
+      "presentacion": "Caso de examen oral sobre Endocrine Surgery (Surgical Oncology). El examinador planteará un escenario clínico de esta área. Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. Temas de la materia: Thyroid Cancer — Classification, Staging & Oncological Management; Thyroidectomy — Technique & Nerve Monitoring; Complications of Thyroid Surgery; Primary Hyperparathyroidism & Parathyroid Carcinoma.",
+      "puntosClave": [
+        "diagnóstico diferencial",
+        "pruebas a solicitar",
+        "manejo y técnica",
+        "complicaciones"
+      ],
+      "fuente": "A7"
+    },
+    {
+      "id": "caso-009",
+      "titulo": "Emergency Surgery",
+      "tema": "General Surgery",
+      "presentacion": "Caso de examen oral sobre Emergency Surgery (General Surgery). El examinador planteará un escenario clínico de esta área. Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. Temas de la materia: Acute Appendicitis; Perforated Peptic Ulcer; Small Bowel Obstruction; Damage Control Surgery.",
+      "puntosClave": [
+        "diagnóstico diferencial",
+        "pruebas a solicitar",
+        "manejo y técnica",
+        "complicaciones"
+      ],
+      "fuente": "B1"
+    },
+    {
+      "id": "caso-010",
+      "titulo": "Hernia Surgery",
+      "tema": "General Surgery",
+      "presentacion": "Caso de examen oral sobre Hernia Surgery (General Surgery). El examinador planteará un escenario clínico de esta área. Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. Temas de la materia: Anatomy of Groin Hernias; Operative Techniques; Laparoscopic Groin Hernia Repair — TEP & TAPP Technical Details; Complex Incisional Hernia.",
+      "puntosClave": [
+        "diagnóstico diferencial",
+        "pruebas a solicitar",
+        "manejo y técnica",
+        "complicaciones"
+      ],
+      "fuente": "B2"
+    },
+    {
+      "id": "caso-011",
+      "titulo": "Bariatric & Metabolic Surgery",
+      "tema": "General Surgery",
+      "presentacion": "Caso de examen oral sobre Bariatric & Metabolic Surgery (General Surgery). El examinador planteará un escenario clínico de esta área. Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. Temas de la materia: Indications and Patient Selection; Pre-operative Assessment & Multidisciplinary Team; RYGB — Operative Steps & Anatomy; Sleeve Gastrectomy — Operative Steps & Bougie Size.",
+      "puntosClave": [
+        "diagnóstico diferencial",
+        "pruebas a solicitar",
+        "manejo y técnica",
+        "complicaciones"
+      ],
+      "fuente": "B3"
+    },
+    {
+      "id": "caso-012",
+      "titulo": "Endocrine Surgery",
+      "tema": "General Surgery",
+      "presentacion": "Caso de examen oral sobre Endocrine Surgery (General Surgery). El examinador planteará un escenario clínico de esta área. Prepárate para el diagnóstico diferencial, las pruebas indicadas y el manejo. Temas de la materia: Thyroid Nodule and Cancer; Thyroidectomy — Technique & Nerve Monitoring; Complications of Thyroid Surgery; Primary Hyperparathyroidism.",
+      "puntosClave": [
+        "diagnóstico diferencial",
+        "pruebas a solicitar",
+        "manejo y técnica",
+        "complicaciones"
+      ],
+      "fuente": "B4"
+    }
+  ]
+}
